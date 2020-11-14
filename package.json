@@ -1,0 +1,20 @@
+{
+  "name": "quiz.akp.tools",
+  "version": "1.0.0",
+  "main": "public/index.html",
+  "repository": "https://github.com/akp-tools/quiz.akp.tools",
+  "author": "Austin Peterson <austin@akpwebdesign.com>",
+  "license": "MIT",
+  "browserslist": ["> 0.2%", "not dead"],
+  "scripts": {
+    "build": "parcel build public/index.html",
+    "start": "parcel public/index.html"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0-nightly.446"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
