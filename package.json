@@ -5,7 +5,10 @@
   "repository": "https://github.com/akp-tools/quiz.akp.tools",
   "author": "Austin Peterson <austin@akpwebdesign.com>",
   "license": "MIT",
-  "browserslist": ["> 0.2%", "not dead"],
+  "browserslist": [
+    "> 0.2%",
+    "not dead"
+  ],
   "scripts": {
     "build": "parcel build public/index.html",
     "start": "parcel public/index.html"
@@ -14,7 +17,10 @@
     "parcel": "^2.0.0-nightly.446"
   },
   "dependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react": "^0.0.0-experimental-4ead6b530",
+    "react-dom": "^0.0.0-experimental-4ead6b530",
+    "react-helmet": "^6.1.0",
+    "react-router-dom": "^5.2.0",
+    "reactfire": "^2.0.3"
   }
 }
