@@ -21,11 +21,11 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "firebase": "^8.1.1",
+    "firebase": "^7.21.1",
     "react": "^0.0.0-experimental-4ead6b530",
     "react-dom": "^0.0.0-experimental-4ead6b530",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
-    "reactfire": "https://github.com/FirebaseExtended/reactfire"
+    "reactfire": "^2.0.3"
   }
 }
