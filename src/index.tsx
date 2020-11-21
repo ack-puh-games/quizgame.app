@@ -1,7 +1,7 @@
 import 'regenerator-runtime/runtime'
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
+import { FirebaseAppProvider } from 'reactfire';
 import { Helmet } from 'react-helmet';
 
 import App from './app';
@@ -10,7 +10,8 @@ import firebaseConfig from './util/firebaseConfig';
 const AppWrapper: React.FC = () => (
   <FirebaseAppProvider firebaseConfig={firebaseConfig}>
     {/* TODO: replace with actual loading component, QUIZ-12 */}
-    <SuspenseWithPerf fallback={<h2>Loading...</h2>} traceId="app-load">
+    {/* TODO: replace React.Suspense with SuspenseWithPerf after upgrade to firebase@^8, QUIZ-13 */}
+    <React.Suspense fallback={<h2>Loading...</h2>} traceId="app-load">
       <Helmet
         defaultTitle="Quiz Site"
         titleTemplate="%s | Quiz Site"
@@ -21,7 +22,7 @@ const AppWrapper: React.FC = () => (
       <React.StrictMode>
         <App />
       </React.StrictMode>
-    </SuspenseWithPerf>
+    </React.Suspense>
   </FirebaseAppProvider>
 );
 

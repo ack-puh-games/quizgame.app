@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AuthCheck as RealAuthCheck, SuspenseWithPerf } from 'reactfire';
+import { AuthCheck as RealAuthCheck } from 'reactfire';
 import { Helmet } from 'react-helmet';
 import { Redirect, useLocation } from 'react-router-dom';
 
@@ -16,14 +16,15 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ authCheckRequired = true, chi
   const AuthCheck = authCheckRequired ? RealAuthCheck : NullAuthCheck;
   return (
     /* TODO: replace with actual loading component, QUIZ-12 */
-    <SuspenseWithPerf fallback={<h2>Loading...</h2>} traceId={traceId}>
+    /* TODO: replace React.Suspense with SuspenseWithPerf after upgrade to firebase@^8, QUIZ-13 */
+    <React.Suspense fallback={<h2>Loading...</h2>} traceId={traceId}>
       <AuthCheck fallback={<Redirect to={`/login?from=${location.pathname}`} />}>
         <Helmet>
           <title>{ title }</title>
         </Helmet>
         { children }
       </AuthCheck>
-    </SuspenseWithPerf>
+    </React.Suspense>
   );
 };
 
