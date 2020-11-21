@@ -1,6 +1,8 @@
 import 'regenerator-runtime/runtime'
 import * as React from 'react';
 import ReactDOM from 'react-dom';
+
+import { Global } from '@emotion/react'
 import { FirebaseAppProvider } from 'reactfire';
 import { Helmet } from 'react-helmet';
 
@@ -12,6 +14,14 @@ const AppWrapper: React.FC = () => (
     {/* TODO: replace with actual loading component, QUIZ-12 */}
     {/* TODO: replace React.Suspense with SuspenseWithPerf after upgrade to firebase@^8, QUIZ-13 */}
     <React.Suspense fallback={<h2>Loading...</h2>} traceId="app-load">
+      <Global
+        styles={{
+          'html, body': {
+            margin: 0,
+            padding: 0,
+          }
+        }}
+      />
       <Helmet
         defaultTitle="Quiz Site"
         titleTemplate="%s | Quiz Site"

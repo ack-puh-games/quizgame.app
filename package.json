@@ -17,11 +17,14 @@
     "start": "parcel public/index.html"
   },
   "devDependencies": {
+    "@types/parcel-env": "^0.0.0",
     "firebase-tools": "^8.16.2",
     "parcel": "^2.0.0-nightly.446",
     "rimraf": "^3.0.2"
   },
   "dependencies": {
+    "@emotion/react": "^11.1.1",
+    "@emotion/styled": "^11.0.0",
     "firebase": "^7.21.1",
     "react": "^0.0.0-experimental-4ead6b530",
     "react-dom": "^0.0.0-experimental-4ead6b530",

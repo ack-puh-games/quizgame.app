@@ -8,28 +8,14 @@ import {
 
 import Editor from './editor';
 import Login from './login';
-import LogoutButton from './login/LogoutButton';
+import NavBar from './navbar';
 // import PageViewLogger from './util/pageViewLogger';
 
 const App = () => {
   return (
       <Router>
         <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/editor">Editor</Link>
-              </li>
-            </ul>
-            <LogoutButton />
-          </nav>
-
-          <br />
-          <br />
-
+          <NavBar />
           <Switch>
             <Route path="/editor">
               <Editor />
