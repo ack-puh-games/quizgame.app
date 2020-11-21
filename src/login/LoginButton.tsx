@@ -18,7 +18,7 @@ const LoginButton: React.FC = () => {
 
   return (
     <button onClick={signIn}>
-      Sign In With Google
+      Log In With Google
     </button>
   )
 };

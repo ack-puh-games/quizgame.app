@@ -8,6 +8,7 @@ import {
 
 import Editor from './editor';
 import Login from './login';
+import LogoutButton from './login/LogoutButton';
 import PageViewLogger from './util/pageViewLogger';
 
 const App = () => {
@@ -23,7 +24,11 @@ const App = () => {
                 <Link to="/editor">Editor</Link>
               </li>
             </ul>
+            <LogoutButton />
           </nav>
+
+          <br />
+          <br />
 
           <Switch>
             <Route path="/editor">
