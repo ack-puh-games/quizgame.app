@@ -11,8 +11,9 @@
   ],
   "scripts": {
     "build": "parcel build public/index.html",
-    "clean": "rimraf .parcel-cache dist",
-    "deepclean": "yarn clean && rimraf node_modules && yarn",
+    "clean": "rimraf dist",
+    "deepclean": "rimraf dist .parcel-cache",
+    "powerwash": "rimraf dist .parcel-cache node_modules && yarn",
     "start": "parcel public/index.html"
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "react-dom": "^0.0.0-experimental-4ead6b530",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
-    "reactfire": "^2.0.3"
+    "reactfire": "^2.0.3",
+    "regenerator-runtime": "^0.13.7"
   }
 }

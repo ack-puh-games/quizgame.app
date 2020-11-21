@@ -9,7 +9,7 @@ import {
 import Editor from './editor';
 import Login from './login';
 import LogoutButton from './login/LogoutButton';
-import PageViewLogger from './util/pageViewLogger';
+// import PageViewLogger from './util/pageViewLogger';
 
 const App = () => {
   return (
@@ -43,7 +43,8 @@ const App = () => {
           </Switch>
         </div>
 
-        <PageViewLogger />
+        {/* Uncomment after upgrading Firebase dependency. QUIZ-13 */}
+        {/* <PageViewLogger /> */}
       </Router>
   );
 };
