@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
+
+import PageWrapper from '../util/PageWrapper';
 
 const Editor: React.FC = () => {
   return (
-    <>
-      <Helmet>
-        <title>Board Editor</title>
-      </Helmet>
+    <PageWrapper title="Board Editor" traceId="editor-page">
       <span>The board editor I guess lol</span>
-    </>
+    </PageWrapper>
   );
 };
 

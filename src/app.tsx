@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import * as React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -7,17 +7,12 @@ import {
 } from "react-router-dom";
 
 import Editor from './editor';
+import Login from './login';
+import PageViewLogger from './util/pageViewLogger';
 
 const App = () => {
   return (
       <Router>
-        <Helmet
-          defaultTitle="Quiz Site"
-          titleTemplate="%s | Quiz Site"
-        >
-            <meta charSet="utf-8" />
-            <title>Home</title>
-        </Helmet>
         <div>
           <nav>
             <ul>
@@ -34,11 +29,16 @@ const App = () => {
             <Route path="/editor">
               <Editor />
             </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
             <Route path="/">
               <span>This is the app.</span>
             </Route>
           </Switch>
         </div>
+
+        <PageViewLogger />
       </Router>
   );
 };
