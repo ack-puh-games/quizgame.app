@@ -6,12 +6,18 @@ import {
     Link
 } from "react-router-dom";
 
+import { preloadFirestore } from 'reactfire';
+
 import Editor from './editor';
 import Login from './login';
 import NavBar from './navbar';
 // import PageViewLogger from './util/pageViewLogger';
 
 const App = () => {
+  preloadFirestore({
+    setup: firestore => firestore().enablePersistence(),
+  });
+
   return (
       <Router>
         <div>

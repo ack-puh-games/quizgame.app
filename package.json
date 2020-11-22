@@ -16,21 +16,63 @@
     "powerwash": "rimraf dist .parcel-cache node_modules && yarn",
     "start": "parcel public/index.html"
   },
+  "babelMacros": {
+    "twin": {
+      "styled": {
+        "import": "default",
+        "from": "@emotion/styled"
+      },
+      "css": {
+        "import": "css",
+        "from": "@emotion/react"
+      },
+      "global": {
+        "import": "Global",
+        "from": "@emotion/react"
+      },
+      "config": "tailwind.config.js",
+      "debugProp": true,
+      "debugPlugins": false,
+      "debug": false
+    }
+  },
   "devDependencies": {
+    "@babel/plugin-transform-typescript": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "@babel/preset-typescript": "^7.12.7",
+    "@emotion/babel-plugin-jsx-pragmatic": "^0.1.5",
+    "@parcel/validator-typescript": "^2.0.0-alpha.3",
     "@types/parcel-env": "^0.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-helmet": "^6.1.0",
+    "@types/react-router-dom": "^5.1.6",
+    "autoprefixer": "^10.0.2",
+    "babel-plugin-macros": "^2.8.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "firebase-tools": "^8.16.2",
+    "jest": "^26.6.3",
     "parcel": "^2.0.0-nightly.446",
-    "rimraf": "^3.0.2"
+    "postcss": "^8.1.9",
+    "postcss-import": "^13.0.0",
+    "postcss-modules": "^3.2.2",
+    "rimraf": "^3.0.2",
+    "tailwind": "^4.0.0"
   },
   "dependencies": {
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",
+    "@tailwindcss/typography": "^0.3.1",
+    "core-js": "3",
     "firebase": "^7.21.1",
     "react": "^0.0.0-experimental-4ead6b530",
     "react-dom": "^0.0.0-experimental-4ead6b530",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "reactfire": "^2.0.3",
-    "regenerator-runtime": "^0.13.7"
+    "regenerator-runtime": "^0.13.7",
+    "tailwindcss": "1.9.0",
+    "twin.macro": "^1.12.1"
   }
 }

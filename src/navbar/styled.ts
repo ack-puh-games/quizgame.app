@@ -1,39 +1,44 @@
-import styled from '@emotion/styled';
+import tw, { styled } from 'twin.macro';
+import { Link, useLocation } from 'react-router-dom';
 
-export const StyledNavBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  height: 48px;
-  background-color: #444;
-  color: #eee;
-  font-size: 1.15em;
-  margin-bottom: 12px;
-  box-shadow: 0 0 12px 5px #847882;
+import { UserAvatar } from '../components';
 
-  & > div {
-    display: flex;
-    align-items: center;
-  }
+export const NavContainer = styled.nav(() => [
+  tw`bg-gray-800`,
+]);
 
-  & > div > * {
-    margin: 0 20px;
-  }
+export const StyledNavBar = styled.div(() => [
+  tw`max-w-6xl mx-auto px-2 sm:px-6 lg:px-8`,
+]);
 
-  & a {
-    color: #eee !important;
-    text-decoration: none;
-  }
-`;
+export const NavItemsWrapper = styled.div(() => [
+  tw`relative flex items-center justify-between h-16`,
+]);
 
-export const StyledUserAvatar = styled.div`
-  height: 32px;
-  width: 32px;
-  border-radius: 32px;
-  overflow: hidden;
-  cursor: pointer;
+export const NavLeftSide = styled.div(() => [
+  tw`flex-1 flex items-center justify-center sm:items-stretch sm:justify-start space-x-4`,
+]);
 
-  & img {
-    height: 32px;
-    width: 32px;
-  }
-`;
+export const NavRightSide = styled.div(() => [
+  tw`absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0`,
+]);
+
+export const NavItem = styled(Link)(({ to }) => {
+  const location = useLocation();
+  return [
+    tw`px-3 py-2 rounded-md text-sm font-medium`,
+    location.pathname === to ? tw`text-white bg-gray-900` : tw`text-gray-300 hover:text-white hover:bg-gray-700`,
+  ]
+});
+
+export const NavUserAvatarContainer = styled.div(() => [
+  tw`ml-3 relative`,
+]);
+
+export const NavUserAvatarButton = styled.button(() => [
+  tw`bg-gray-800 flex text-sm rounded-full focus:outline-none focus:shadow-outline`,
+]);
+
+export const NavUserAvatar = styled(UserAvatar)(() => [
+  tw`h-8 w-8`,
+]);

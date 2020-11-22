@@ -1,25 +1,29 @@
 import * as React from 'react';
-import { Link } from "react-router-dom";
-import { AuthCheck, useUser } from 'reactfire';
+import { AuthCheck } from 'reactfire';
 
-import { StyledNavBar } from './styled';
-import UserAvatar from './UserAvatar';
+import { NavContainer, NavItem, NavItemsWrapper, NavLeftSide, NavRightSide, NavUserAvatarContainer, StyledNavBar } from './styled';
+import UserMenu from './UserMenu';
 
 const NavBar: React.FC = () => {
-  const user = useUser();
-
   return (
-    <StyledNavBar>
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="/editor">Editor</Link>
-      </div>
-      <div>
-        <AuthCheck fallback={null}>
-          <UserAvatar />
-        </AuthCheck>
-      </div>
-    </StyledNavBar>
+    <NavContainer>
+      <StyledNavBar>
+        <NavItemsWrapper>
+          <NavLeftSide>
+            <NavItem to="/">Home</NavItem>
+            <NavItem to="/editor">Editor</NavItem>
+          </NavLeftSide>
+
+          <NavRightSide>
+            <AuthCheck fallback={null}>
+              <NavUserAvatarContainer>
+                <UserMenu />
+              </NavUserAvatarContainer>
+            </AuthCheck>
+          </NavRightSide>
+        </NavItemsWrapper>
+      </StyledNavBar>
+    </NavContainer>
   );
 };
 

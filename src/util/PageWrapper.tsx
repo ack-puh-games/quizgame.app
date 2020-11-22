@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Redirect, useLocation } from 'react-router-dom';
 
 interface PageWrapperProps {
-  authCheckRequired: boolean;
+  authCheckRequired?: boolean;
   title: string;
   traceId: string;
 }
