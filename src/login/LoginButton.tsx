@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import { useAuth } from 'reactfire';
 import { useHistory } from 'react-router-dom';
 
+import { Button } from '../components';
 import useQuery from '../util/useQuery';
 
 const LoginButton: React.FC = () => {
@@ -16,11 +17,7 @@ const LoginButton: React.FC = () => {
     history.push(query.get('from') || '/');
   };
 
-  return (
-    <button onClick={signIn}>
-      Log In With Google
-    </button>
-  )
+  return <Button onClick={signIn}>Log In With Google</Button>;
 };
 
 export default LoginButton;

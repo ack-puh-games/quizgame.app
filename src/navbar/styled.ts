@@ -3,12 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { UserAvatar } from '../components';
 
-export const NavContainer = styled.nav(() => [
-  tw`bg-gray-800`,
-]);
+export const NavContainer = styled.nav(() => [tw`bg-gray-800`]);
 
 export const StyledNavBar = styled.div(() => [
-  tw`max-w-6xl mx-auto px-2 sm:px-6 lg:px-8`,
+  tw`max-w-6xl px-2 mx-auto sm:px-6 lg:px-8`,
 ]);
 
 export const NavItemsWrapper = styled.div(() => [
@@ -16,7 +14,7 @@ export const NavItemsWrapper = styled.div(() => [
 ]);
 
 export const NavLeftSide = styled.div(() => [
-  tw`flex-1 flex items-center justify-center sm:items-stretch sm:justify-start space-x-4`,
+  tw`flex items-center justify-center flex-1 space-x-4 sm:items-stretch sm:justify-start`,
 ]);
 
 export const NavRightSide = styled.div(() => [
@@ -25,20 +23,20 @@ export const NavRightSide = styled.div(() => [
 
 export const NavItem = styled(Link)(({ to }) => {
   const location = useLocation();
+  const pathname = `/${location.pathname.split('/')[1]}`;
+
   return [
-    tw`px-3 py-2 rounded-md text-sm font-medium`,
-    location.pathname === to ? tw`text-white bg-gray-900` : tw`text-gray-300 hover:text-white hover:bg-gray-700`,
-  ]
+    tw`px-3 py-2 text-sm font-medium rounded-md`,
+    pathname === to
+      ? tw`text-white bg-gray-900`
+      : tw`text-gray-300 hover:text-white hover:bg-gray-700`,
+  ];
 });
 
-export const NavUserAvatarContainer = styled.div(() => [
-  tw`ml-3 relative`,
-]);
+export const NavUserAvatarContainer = styled.div(() => [tw`relative ml-3`]);
 
 export const NavUserAvatarButton = styled.button(() => [
-  tw`bg-gray-800 flex text-sm rounded-full focus:outline-none focus:shadow-outline`,
+  tw`flex text-sm bg-gray-800 rounded-full focus:outline-none focus:shadow-outline`,
 ]);
 
-export const NavUserAvatar = styled(UserAvatar)(() => [
-  tw`h-8 w-8`,
-]);
+export const NavUserAvatar = styled(UserAvatar)(() => [tw`w-8 h-8`]);

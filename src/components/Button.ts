@@ -1,23 +1,21 @@
 import tw, { css, styled, theme } from 'twin.macro';
 
 interface ButtonProps {
-  isPrimary?: boolean;
-  isSecondary?: boolean;
   isSmall?: boolean;
+  fullWidth?: boolean;
 }
 
-export const Button = styled.button<ButtonProps>(({ isPrimary, isSecondary, isSmall }) => [
-  tw`text-lg px-8 py-2 rounded focus:outline-none`,
-  tw`transform transition-transform duration-75`,
-  tw`hocus:(scale-105 text-yellow-400)`,
+export const Button = styled.button<ButtonProps>(({ isSmall, fullWidth }) => [
+  tw`px-8 py-2 text-lg rounded focus:outline-none`,
+  tw`text-white bg-black`,
+  tw`hocus:(bg-gray-900)`,
 
-  isPrimary && tw`bg-black text-white border-black`,
-  isSecondary && tw`border-2 border-yellow-600`,
   isSmall ? tw`text-sm` : tw`text-lg`,
+  fullWidth && tw`container`,
 
   css`
     color: ${theme`colors.white`};
-  `
+  `,
 ]);
 
 export default Button;

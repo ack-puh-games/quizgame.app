@@ -16,7 +16,7 @@ const UserMenu: React.FC = () => {
     <NavUserAvatarButton onClick={signOut} title="Log Out">
       <NavUserAvatar src={photoURL} />
     </NavUserAvatarButton>
-  )
+  );
 };
 
 export default UserMenu;

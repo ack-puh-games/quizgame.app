@@ -5,6 +5,6 @@ const useQuery = () => {
 
   // Why couldn't react-router-dom just include this?
   return new URLSearchParams(location.search);
-}
+};
 
 export default useQuery;

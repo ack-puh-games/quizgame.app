@@ -13,8 +13,5 @@
     "@babel/typescript",
     "@babel/react"
   ],
-  "plugins": [
-    "babel-plugin-transform-inline-environment-variables",
-    "babel-plugin-macros"
-  ]
+  "plugins": ["babel-plugin-transform-inline-environment-variables", "babel-plugin-macros"]
 }

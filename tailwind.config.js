@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    content: ["./public/index.html", "./src/**/*.tsx", "./src/**/*.ts"],
+    content: ['./public/index.html', './src/**/*.tsx', './src/**/*.ts'],
   },
   darkMode: 'media',
   theme: {
@@ -8,10 +8,12 @@ module.exports = {
   },
   variants: {
     extend: {
-      ringWidth: ['focus']
+      ringWidth: ['focus'],
     },
   },
   plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/custom-forms'),
     require('@tailwindcss/typography'),
   ],
   future: {
@@ -20,4 +22,4 @@ module.exports = {
     defaultLineHeights: true,
     standardFontWeights: true,
   },
-}
+};

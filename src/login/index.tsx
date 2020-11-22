@@ -1,15 +1,18 @@
 import * as React from 'react';
 
-import LoginButton from './LoginButton';
 import PageWrapper from '../util/PageWrapper';
+import { CommonWrapper } from '../util/styled';
+
+import LoginButton from './LoginButton';
 
 const Login: React.FC = () => {
   return (
     <PageWrapper title="Login" traceId="login-page" authCheckRequired={false}>
-      <span>oops you aren't logged in lol</span>
-      <br />
-      <br />
-      <LoginButton />
+      <CommonWrapper>
+        <span>oops you aren't logged in lol</span>
+        <br />
+        <LoginButton />
+      </CommonWrapper>
     </PageWrapper>
   );
 };

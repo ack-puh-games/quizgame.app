@@ -1,13 +1,19 @@
 import * as React from 'react';
 
 import PageWrapper from '../util/PageWrapper';
+import BoardsList from './BoardsList';
+import Editor from './Editor';
 
-const Editor: React.FC = () => {
-  return (
-    <PageWrapper title="Board Editor" traceId="editor-page">
-      <span>The board editor I guess lol</span>
-    </PageWrapper>
-  );
-};
+export const BoardsListPage: React.FC = () => (
+  <PageWrapper title="Boards" traceId="boards-list-page">
+    <BoardsList />
+  </PageWrapper>
+);
 
-export default Editor;
+export const EditorPage: React.FC = () => (
+  <PageWrapper title="Board Editor" traceId="editor-page">
+    <Editor />
+  </PageWrapper>
+);
+
+export default BoardsListPage;
