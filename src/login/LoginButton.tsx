@@ -1,6 +1,6 @@
 import * as React from 'react';
 import firebase from 'firebase/app';
-import { useAuth } from 'reactfire';
+import { useAuth, useFirestore } from 'reactfire';
 import { useHistory } from 'react-router-dom';
 
 import { Button } from '../components';
