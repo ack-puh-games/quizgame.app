@@ -88,7 +88,8 @@ export const BoardCard = styled.div(() => [
 ]);
 
 export const BoardIconContainer = styled.div(() => [
-  tw`flex items-center justify-center flex-shrink-0 w-12 h-12 text-blue-600 bg-blue-200 rounded-xl`,
+  tw`flex items-center justify-center flex-shrink-0 w-12 h-12`,
+  tw`text-blue-100 bg-gradient-to-br from-blue-300 to-indigo-700 rounded-xl`,
 ]);
 
 export const BoardIcon = styled(BoardIconComponent)(() => [tw`w-6 h-6`]);
