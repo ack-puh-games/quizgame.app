@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import tw, { styled } from 'twin.macro';
+import tw, { css, styled } from 'twin.macro';
 
 import {
   Button,
@@ -76,21 +76,15 @@ export const CreateBoardModal: React.FC<CreateBoardModalProps> = ({
   </Modal>
 );
 
-export const ActionsContainer = styled.div(() => [
-  tw`flex flex-row justify-end w-4/5`,
-]);
-
 export const CardsContainer = styled.div(() => [
-  tw`grid grid-cols-12 gap-4 mt-8`,
+  tw`flex flex-row flex-wrap mt-8`,
 ]);
 
-export const BoardCardContainer = styled(Link)(() => [
-  tw`col-span-12 sm:col-span-6 md:col-span-3`,
-]);
+export const BoardCardContainer = styled(Link)(() => [tw`w-64 h-32 m-2`]);
 
 export const BoardCard = styled.div(() => [
   tw`flex flex-row p-4 bg-white rounded shadow-sm`,
-  tw`cursor-pointer hover:bg-gray-100`,
+  tw`w-full h-full cursor-pointer hover:bg-gray-100`,
 ]);
 
 export const BoardIconContainer = styled.div(() => [
@@ -105,4 +99,22 @@ export const BoardFlexColumn = styled.div(() => [
 
 export const BoardCardHeader = styled.span(() => [tw`text-sm text-gray-500`]);
 
-export const BoardCardData = styled.span(() => [tw`text-lg font-bold`]);
+export const BoardCardData = styled.span(() => [
+  tw`w-32 text-lg font-bold`,
+  css`
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  `,
+]);
+
+export const EmptyBoardCardContainer = styled.div(() => [
+  tw`flex w-64 h-32 m-2 rounded-lg cursor-pointer hover:shadow-lg`,
+]);
+
+export const EmptyBoardCard = styled.div(() => [
+  tw`flex items-center justify-center w-full py-4 text-lg`,
+  tw`font-medium border-2 border-gray-500 border-dashed rounded-lg`,
+  tw`hover:border-transparent hover:shadow-xs`,
+  tw`transition-all duration-150 ease-in-out`,
+]);

@@ -19,7 +19,8 @@ import {
   BoardFlexColumn,
   BoardCardHeader,
   BoardCardData,
-  ActionsContainer,
+  EmptyBoardCardContainer,
+  EmptyBoardCard,
 } from './styled';
 
 const calculateQuestions = (board: Board) => {
@@ -91,11 +92,6 @@ const BoardsList: React.FC = () => {
           </>
         ) : (
           <>
-            <ActionsContainer>
-              <Button type="button" onClick={() => setShowCreationModal(true)}>
-                Create new Board
-              </Button>
-            </ActionsContainer>
             <CardsContainer>
               {boards.map((board) => (
                 <BoardCardContainer
@@ -121,6 +117,11 @@ const BoardsList: React.FC = () => {
                   </BoardCard>
                 </BoardCardContainer>
               ))}
+              <EmptyBoardCardContainer>
+                <EmptyBoardCard onClick={() => setShowCreationModal(true)}>
+                  New Board
+                </EmptyBoardCard>
+              </EmptyBoardCardContainer>
             </CardsContainer>
           </>
         )}

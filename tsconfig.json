@@ -1,3 +1,20 @@
 {
+  "compilerOptions": {
+    "outDir": "build/dist",
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es6", "dom", "ESNext"],
+    "sourceMap": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true
+  },
   "files": ["twin.d.ts"],
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

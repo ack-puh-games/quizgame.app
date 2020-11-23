@@ -24,5 +24,15 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/no-unescaped-entities': 'off',
+    'max-len': [
+      'error',
+      {
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreUrls: true,
+        code: 120,
+        tabWidth: 2,
+      },
+    ],
   },
 };

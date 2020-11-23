@@ -20,11 +20,15 @@ interface ModalContentWrapperProps {
   size: ModalSize;
 }
 
+interface ModalContainerProps {
+  showModal: boolean;
+}
+
 const ModalBackground = styled.div(() => [
   tw`fixed inset-0 z-40 bg-black opacity-25`,
 ]);
 
-const ModalContainer = styled.div(({ showModal }) => [
+const ModalContainer = styled.div<ModalContainerProps>(({ showModal }) => [
   tw`flex items-center justify-center`,
   tw`overflow-x-hidden overflow-y-auto`,
   tw`fixed inset-0 z-50 outline-none focus:outline-none`,

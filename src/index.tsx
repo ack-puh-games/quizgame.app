@@ -20,7 +20,8 @@ const AppWrapper: React.FC = () => (
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
       {/* TODO: replace with actual loading component, QUIZ-12 */}
       {/* TODO: replace React.Suspense with SuspenseWithPerf after upgrade to firebase@^8, QUIZ-13 */}
-      <React.Suspense fallback={<h2>Loading...</h2>} traceId="app-load">
+      {/* <React.Suspense fallback={<h2>Loading...</h2>} traceId="app-load"> */}
+      <React.Suspense fallback={<h2>Loading...</h2>}>
         <Helmet defaultTitle="Quiz Site" titleTemplate="%s | Quiz Site">
           <meta charSet="utf-8" />
           <title>Home</title>
@@ -33,6 +34,7 @@ const AppWrapper: React.FC = () => (
   </AppContainer>
 );
 
+// @ts-ignore experimental features aren't in the types yet...
 ReactDOM.unstable_createRoot(document.getElementById('root')).render(
   <AppWrapper />,
 );
