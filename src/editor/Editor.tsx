@@ -36,21 +36,17 @@ const EditableCategoryCard: React.FC<EditableCategoryCardProps> = ({
   const [inputName, setInputName] = React.useState(name);
   const category = categoriesQuery.doc(categoryId);
 
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
 
-    category.set({ name: value });
+    category.set({ name: value }, { merge: true });
     setInputName(value);
   };
 
   return (
     <EditorCardContainer>
       <EditorCard>
-        <EditorCardData
-          type="text"
-          onChange={onInputChange}
-          value={inputName}
-        />
+        <EditorCardData onChange={onInputChange} value={inputName} />
       </EditorCard>
     </EditorCardContainer>
   );
@@ -66,9 +62,12 @@ const Editor: React.FC = () => {
 
   const categoriesQuery = boardQuery.collection('categories');
 
-  const categories = useFirestoreCollectionData<Category>(categoriesQuery, {
-    idField: 'id',
-  });
+  const categories = useFirestoreCollectionData<Category>(
+    categoriesQuery.orderBy('pos'),
+    {
+      idField: 'id',
+    },
+  );
 
   return (
     <CommonWrapper>

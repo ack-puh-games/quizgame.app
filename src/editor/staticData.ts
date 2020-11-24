@@ -55,20 +55,26 @@ export const defaultQuestions = [
 export const defaultCategories = [
   {
     name: 'Category 1',
+    pos: 1,
   },
   {
     name: 'Category 2',
+    pos: 2,
   },
   {
     name: 'Category 3',
+    pos: 3,
   },
   {
     name: 'Category 4',
+    pos: 4,
   },
   {
     name: 'Category 5',
+    pos: 5,
   },
   {
     name: 'Category 6',
+    pos: 6,
   },
 ];

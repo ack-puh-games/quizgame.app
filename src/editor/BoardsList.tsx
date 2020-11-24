@@ -49,9 +49,7 @@ const BoardsList: React.FC = () => {
     });
 
     defaultCategories.forEach(async (catData) => {
-      const category = await board.collection('categories').add({
-        name: catData.name,
-      });
+      const category = await board.collection('categories').add(catData);
 
       defaultQuestions.forEach(async (qData) => {
         await board.collection('questions').add({

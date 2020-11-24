@@ -146,11 +146,11 @@ export const EditorCard = styled.div(() => [
 
 export const EditorCardHeader = styled.span(() => [tw`text-sm text-gray-500`]);
 
-export const EditorCardData = styled.input(() => [
-  tw`text-lg font-bold`,
+export const EditorCardData = styled.textarea(() => [
+  tw`w-full h-full text-lg font-bold`,
   css`
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    white-space: normal;
+    text-align: justify;
+    text-align-last: center;
   `,
 ]);
