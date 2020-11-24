@@ -152,5 +152,6 @@ export const EditorCardData = styled.textarea(() => [
     white-space: normal;
     text-align: justify;
     text-align-last: center;
+    resize: none;
   `,
 ]);
