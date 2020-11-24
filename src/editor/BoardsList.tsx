@@ -6,36 +6,16 @@ import { useHistory } from 'react-router-dom';
 import { Button } from '../components';
 import { CommonWrapper } from '../util/styled';
 
-import { Board, defaultBoardData } from './staticData';
+import { BoardCard } from './BoardCard';
+import { Board, defaultCategories, defaultQuestions } from './staticData';
 import {
-  BoardCardContainer,
-  BoardCard,
-  BoardIcon,
   CardsContainer,
   CreateBoardModal,
   EmptyImage,
   Header,
-  BoardIconContainer,
-  BoardFlexColumn,
-  BoardCardHeader,
-  BoardCardData,
   EmptyBoardCardContainer,
   EmptyBoardCard,
 } from './styled';
-
-const calculateQuestions = (board: Board) => {
-  let totalEditedQuestions = 0;
-
-  board.boardData.categories.forEach((catData) => {
-    catData.questions.forEach((qData) => {
-      if (qData.edited) {
-        totalEditedQuestions += 1;
-      }
-    });
-  });
-
-  return totalEditedQuestions;
-};
 
 const BoardsList: React.FC = () => {
   const [showCreationModal, setShowCreationModal] = React.useState<boolean>(
@@ -64,9 +44,21 @@ const BoardsList: React.FC = () => {
     const board = await firestore.collection('boards').add({
       owner: user.uid,
       name: newBoardName,
-      boardData: defaultBoardData,
       created: Date.now(),
       edited: Date.now(),
+    });
+
+    defaultCategories.forEach(async (catData) => {
+      const category = await board.collection('categories').add({
+        name: catData.name,
+      });
+
+      defaultQuestions.forEach(async (qData) => {
+        await board.collection('questions').add({
+          ...qData,
+          categoryId: category.id,
+        });
+      });
     });
 
     history.push(`/editor/board/${board.id}`);
@@ -94,28 +86,7 @@ const BoardsList: React.FC = () => {
           <>
             <CardsContainer>
               {boards.map((board) => (
-                <BoardCardContainer
-                  key={board.id}
-                  to={`/editor/board/${board.id}`}
-                >
-                  <BoardCard>
-                    <BoardIconContainer>
-                      <BoardIcon />
-                    </BoardIconContainer>
-                    <BoardFlexColumn>
-                      <BoardFlexColumn>
-                        <BoardCardHeader>Name</BoardCardHeader>
-                        <BoardCardData>{board.name}</BoardCardData>
-                      </BoardFlexColumn>
-                      <BoardFlexColumn>
-                        <BoardCardHeader>Questions</BoardCardHeader>
-                        <BoardCardData>
-                          {calculateQuestions(board)} / 30
-                        </BoardCardData>
-                      </BoardFlexColumn>
-                    </BoardFlexColumn>
-                  </BoardCard>
-                </BoardCardContainer>
+                <BoardCard board={board} key={board.id} />
               ))}
               <EmptyBoardCardContainer>
                 <EmptyBoardCard onClick={() => setShowCreationModal(true)}>

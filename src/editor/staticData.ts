@@ -1,4 +1,5 @@
 export interface Question {
+  id?: string;
   question: string;
   answer: string;
   value: number;
@@ -6,17 +7,16 @@ export interface Question {
 }
 
 export interface Category {
+  id?: string;
   name: string;
-  questions: Question[];
 }
 
 export interface Board {
   id?: string;
   name: string;
   owner: string;
-  boardData: {
-    categories: Category[];
-  };
+  created: number;
+  edited: number;
 }
 
 export const defaultQuestions = [
@@ -52,31 +52,23 @@ export const defaultQuestions = [
   },
 ];
 
-export const defaultBoardData = {
-  categories: [
-    {
-      name: 'Category 1',
-      questions: defaultQuestions,
-    },
-    {
-      name: 'Category 2',
-      questions: defaultQuestions,
-    },
-    {
-      name: 'Category 3',
-      questions: defaultQuestions,
-    },
-    {
-      name: 'Category 4',
-      questions: defaultQuestions,
-    },
-    {
-      name: 'Category 5',
-      questions: defaultQuestions,
-    },
-    {
-      name: 'Category 6',
-      questions: defaultQuestions,
-    },
-  ],
-};
+export const defaultCategories = [
+  {
+    name: 'Category 1',
+  },
+  {
+    name: 'Category 2',
+  },
+  {
+    name: 'Category 3',
+  },
+  {
+    name: 'Category 4',
+  },
+  {
+    name: 'Category 5',
+  },
+  {
+    name: 'Category 6',
+  },
+];

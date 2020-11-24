@@ -92,7 +92,7 @@ export const BoardIconContainer = styled.div(() => [
   tw`text-blue-100 bg-gradient-to-br from-blue-300 to-indigo-700 rounded-xl`,
 ]);
 
-export const BoardIcon = styled(BoardIconComponent)(() => [tw`w-6 h-6`]);
+export const BoardIcon = styled(BoardIconComponent)(() => [tw`w-8 h-8`]);
 
 export const BoardFlexColumn = styled.div(() => [
   tw`flex flex-col flex-grow ml-4`,
@@ -118,4 +118,39 @@ export const EmptyBoardCard = styled.div(() => [
   tw`font-medium border-2 border-gray-500 border-dashed rounded-lg`,
   tw`hover:border-transparent hover:shadow-xs`,
   tw`transition-all duration-150 ease-in-out`,
+]);
+
+export const EditorGrid = styled.div(() => [
+  css`
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 5px 5px;
+    grid-template-areas:
+      '. . . . . .'
+      '. . . . . .'
+      '. . . . . .'
+      '. . . . . .'
+      '. . . . . .'
+      '. . . . . .';
+  `,
+]);
+
+export const EditorCardContainer = styled.div(() => [tw`w-64 h-32 m-2`]);
+
+export const EditorCard = styled.div(() => [
+  tw`flex flex-row p-4 bg-white rounded shadow-sm`,
+  tw`w-full h-full`,
+  tw`items-center justify-center`,
+]);
+
+export const EditorCardHeader = styled.span(() => [tw`text-sm text-gray-500`]);
+
+export const EditorCardData = styled.input(() => [
+  tw`text-lg font-bold`,
+  css`
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  `,
 ]);
