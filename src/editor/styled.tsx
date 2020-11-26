@@ -139,7 +139,7 @@ export const EditorGrid = styled.div(() => [
 export const EditorCardContainer = styled.div(() => [tw`w-64 h-32 m-2`]);
 
 export const EditorCard = styled.div(() => [
-  tw`flex flex-row p-1 pb-6 bg-white rounded shadow-sm`,
+  tw`flex flex-row p-1 pb-6 bg-white rounded shadow-md`,
   tw`w-full h-full`,
   tw`items-center justify-center`,
 ]);
