@@ -85,8 +85,6 @@ const Editor: React.FC = () => {
     questions: questions.filter((qData) => qData.categoryId === catData.id),
   }));
 
-  console.log(catQuestionMap);
-
   return (
     <CommonWrapper>
       <Header>{board.name}</Header>
