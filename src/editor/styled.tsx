@@ -139,7 +139,7 @@ export const EditorGrid = styled.div(() => [
 export const EditorCardContainer = styled.div(() => [tw`w-64 h-32 m-2`]);
 
 export const EditorCard = styled.div(() => [
-  tw`flex flex-row p-4 bg-white rounded shadow-sm`,
+  tw`flex flex-row p-1 pb-6 bg-white rounded shadow-sm`,
   tw`w-full h-full`,
   tw`items-center justify-center`,
 ]);
@@ -150,8 +150,44 @@ export const EditorCardData = styled.textarea(() => [
   tw`w-full h-full text-lg font-bold`,
   css`
     white-space: normal;
-    text-align: justify;
-    text-align-last: center;
+    text-align: center;
     resize: none;
+  `,
+]);
+
+interface CardWrapperProps {
+  posX: number;
+  posY: number;
+}
+
+export const CardWrapper = styled.div<CardWrapperProps>(({ posX, posY }) => [
+  tw`relative`,
+  posX &&
+    css`
+      grid-column-start: ${posX};
+      grid-column-end: ${posX + 1};
+    `,
+  posY &&
+    css`
+      grid-row-start: ${posY};
+      grid-row-end: ${posY + 1};
+    `,
+]);
+
+export const QuestionField = styled.div(() => [
+  tw`absolute text-xs font-semibold`,
+]);
+
+export const QuestionValue = styled(QuestionField)(() => [
+  css`
+    bottom: 12px;
+    left: 15px;
+  `,
+]);
+
+export const QuestionCategory = styled(QuestionField)(() => [
+  css`
+    bottom: 12px;
+    right: 15px;
   `,
 ]);

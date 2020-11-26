@@ -1,22 +1,24 @@
 export interface Question {
   id?: string;
-  question: string;
+  categoryId: string;
   answer: string;
-  value: number;
   edited: boolean;
+  question: string;
+  value: number;
 }
 
 export interface Category {
   id?: string;
   name: string;
+  pos: number;
 }
 
 export interface Board {
   id?: string;
-  name: string;
-  owner: string;
   created: number;
   edited: number;
+  name: string;
+  owner: string;
 }
 
 export const defaultQuestions = [
