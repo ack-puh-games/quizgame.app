@@ -142,16 +142,18 @@ export const EditorCard = styled.div(() => [
   tw`flex flex-row p-1 pb-6 bg-white rounded shadow-md`,
   tw`w-full h-full`,
   tw`items-center justify-center`,
+  tw`hocus:(shadow-outline) focus-within:shadow-outline`,
 ]);
 
 export const EditorCardHeader = styled.span(() => [tw`text-sm text-gray-500`]);
 
 export const EditorCardData = styled.textarea(() => [
-  tw`w-full h-full text-lg font-bold`,
+  tw`w-full h-full text-lg font-bold border-0`,
   css`
     white-space: normal;
     text-align: center;
     resize: none;
+    box-shadow: none !important;
   `,
 ]);
 
