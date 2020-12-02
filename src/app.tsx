@@ -19,7 +19,6 @@ const GameConfiguratorPage = React.lazy(
 const GamePlayPage = React.lazy(() => import('./game/PlayGame'));
 const GameHostPage = React.lazy(() => import('./game/HostGame'));
 const NavBar = React.lazy(() => import('./navbar'));
-const Page = React.lazy(() => import('./util/Page'));
 
 const App = () => {
   preloadFirestore({

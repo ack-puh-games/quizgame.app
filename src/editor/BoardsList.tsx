@@ -9,9 +9,9 @@ import {
   CardsContainer,
   CommonWrapper,
   Header,
+  PageWrapper,
 } from '../components';
 import { IBoard } from '../interfaces';
-import PageWrapper from '../util/PageWrapper';
 
 import { defaultCategories, defaultQuestions } from './staticData';
 import {

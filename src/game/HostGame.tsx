@@ -16,9 +16,9 @@ import {
   CardGrid,
   CardWrapper,
   CommonWrapper,
+  PageWrapper,
 } from '../components';
 import { ICategory, IGame, IQuestion } from '../interfaces';
-import PageWrapper from '../util/PageWrapper';
 
 interface GamePageParams {
   gameId?: string;

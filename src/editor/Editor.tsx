@@ -14,9 +14,9 @@ import {
   CommonWrapper,
   EditorCard,
   Header,
+  PageWrapper,
 } from '../components';
 import { IBoard, ICategory, IQuestion } from '../interfaces';
-import PageWrapper from '../util/PageWrapper';
 
 import { QuestionCategory, QuestionValue } from './styled';
 

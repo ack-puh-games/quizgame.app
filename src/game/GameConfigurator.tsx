@@ -13,9 +13,9 @@ import {
   CardsContainer,
   CommonWrapper,
   Header,
+  PageWrapper,
 } from '../components';
 import { IBoard } from '../interfaces';
-import PageWrapper from '../util/PageWrapper';
 
 import { EmptyImage } from './styled';
 
