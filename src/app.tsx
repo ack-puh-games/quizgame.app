@@ -32,32 +32,14 @@ const App = () => {
       <div>
         <NavBar />
         <Switch>
-          <Route path="/editor/board/:boardId">
-            <EditorPage />
-          </Route>
-          <Route path="/editor">
-            <BoardsListPage />
-          </Route>
-          <Route path="/game/play/:gameId">
-            <GamePlayPage />
-          </Route>
-          <Route path="/game/host/:gameId">
-            <GameHostPage />
-          </Route>
-          <Route path="/game/new">
-            <GameConfiguratorPage />
-          </Route>
-          <Route path="/game">
-            <Redirect to="/game/new" />
-          </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/">
-            <Page>
-              <span>This is the app.</span>
-            </Page>
-          </Route>
+          <Route path="/editor/board/:boardId" render={() => <EditorPage />} />
+          <Route path="/editor" render={() => <BoardsListPage />} />
+          <Route path="/game/play/:gameId" render={() => <GamePlayPage />} />
+          <Route path="/game/host/:gameId" render={() => <GameHostPage />} />
+          <Route path="/game/new" render={() => <GameConfiguratorPage />} />
+          <Route path="/game" render={() => <Redirect to="/game/new" />} />
+          <Route path="/login" render={() => <LoginPage />} />
+          <Route path="/" render={() => <Redirect to="/game/new" />} />
         </Switch>
       </div>
 
