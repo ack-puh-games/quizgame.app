@@ -8,12 +8,18 @@ import {
 
 import { preloadFirestore } from 'reactfire';
 
-import { BoardsListPage, EditorPage } from './editor';
-import GameConfiguratorPage, { GamePage } from './game';
-import Login from './login';
-import NavBar from './navbar';
-import Page from './util/Page';
 // import PageViewLogger from './util/pageViewLogger';
+
+const LoginPage = React.lazy(() => import('./login'));
+const EditorPage = React.lazy(() => import('./editor/Editor'));
+const BoardsListPage = React.lazy(() => import('./editor/BoardsList'));
+const GameConfiguratorPage = React.lazy(
+  () => import('./game/GameConfigurator'),
+);
+const GamePlayPage = React.lazy(() => import('./game/PlayGame'));
+const GameHostPage = React.lazy(() => import('./game/HostGame'));
+const NavBar = React.lazy(() => import('./navbar'));
+const Page = React.lazy(() => import('./util/Page'));
 
 const App = () => {
   preloadFirestore({
@@ -33,7 +39,10 @@ const App = () => {
             <BoardsListPage />
           </Route>
           <Route path="/game/play/:gameId">
-            <GamePage />
+            <GamePlayPage />
+          </Route>
+          <Route path="/game/host/:gameId">
+            <GameHostPage />
           </Route>
           <Route path="/game/new">
             <GameConfiguratorPage />
@@ -42,7 +51,7 @@ const App = () => {
             <Redirect to="/game/new" />
           </Route>
           <Route path="/login">
-            <Login />
+            <LoginPage />
           </Route>
           <Route path="/">
             <Page>

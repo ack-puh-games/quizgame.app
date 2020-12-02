@@ -3,16 +3,20 @@ import { User } from 'firebase';
 import { useFirestore, useFirestoreCollectionData, useUser } from 'reactfire';
 import { useHistory } from 'react-router-dom';
 
-import { Button } from '../components';
-import { CommonWrapper } from '../util/styled';
-
-import { BoardCard } from './BoardCard';
-import { Board, defaultCategories, defaultQuestions } from './staticData';
 import {
+  BoardCard,
+  Button,
   CardsContainer,
+  CommonWrapper,
+  Header,
+} from '../components';
+import { IBoard } from '../interfaces';
+import PageWrapper from '../util/PageWrapper';
+
+import { defaultCategories, defaultQuestions } from './staticData';
+import {
   CreateBoardModal,
   EmptyImage,
-  Header,
   EmptyBoardCardContainer,
   EmptyBoardCard,
 } from './styled';
@@ -32,7 +36,7 @@ const BoardsList: React.FC = () => {
     .where('owner', '==', user.uid)
     .orderBy('name');
 
-  const boards = useFirestoreCollectionData<Board>(boardsQuery, {
+  const boards = useFirestoreCollectionData<IBoard>(boardsQuery, {
     idField: 'id',
   });
 
@@ -84,7 +88,11 @@ const BoardsList: React.FC = () => {
           <>
             <CardsContainer>
               {boards.map((board) => (
-                <BoardCard board={board} key={board.id} />
+                <BoardCard
+                  board={board}
+                  to={`/editor/board/${board.id}`}
+                  key={board.id}
+                />
               ))}
               <EmptyBoardCardContainer>
                 <EmptyBoardCard onClick={() => setShowCreationModal(true)}>
@@ -106,4 +114,10 @@ const BoardsList: React.FC = () => {
   );
 };
 
-export default BoardsList;
+const BoardsListPage: React.FC = () => (
+  <PageWrapper title="Board Editor" traceId="editor-page">
+    <BoardsList />
+  </PageWrapper>
+);
+
+export default BoardsListPage;
