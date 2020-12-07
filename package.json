@@ -18,6 +18,11 @@
     "start": "parcel public/index.html",
     "typecheck": "tsc --noEmit"
   },
+  "targets": {
+    "main": {
+      "publicUrl": "./"
+    }
+  },
   "babelMacros": {
     "twin": {
       "preset": "emotion"

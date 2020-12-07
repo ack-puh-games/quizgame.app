@@ -5,7 +5,6 @@ import * as ReactDOM from 'react-dom';
 import { FirebaseAppProvider } from 'reactfire';
 import { Helmet } from 'react-helmet';
 import tw, { GlobalStyles, styled } from 'twin.macro';
-import './styles.css';
 
 import App from './app';
 import firebaseConfig from './util/firebaseConfig';
