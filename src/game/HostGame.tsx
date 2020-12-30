@@ -1,13 +1,6 @@
 import * as React from 'react';
-import * as firebase from 'firebase/app';
-import {
-  useDatabase,
-  useDatabaseObjectData,
-  useFirestore,
-  useFirestoreCollectionData,
-  useUser,
-} from 'reactfire';
-import { useParams } from 'react-router-dom';
+import { useDatabase, useDatabaseObjectData } from 'reactfire';
+import { useParams, useHistory } from 'react-router-dom';
 
 import {
   Card,
@@ -18,53 +11,37 @@ import {
   CommonWrapper,
   PageWrapper,
 } from '../components';
-import { ICategory, IGame, IQuestion } from '../interfaces';
+import { IGame } from '../interfaces';
+
+import { useBoardData } from './useBoardData';
 
 interface GamePageParams {
   gameId?: string;
 }
 
 const HostGame: React.FC = () => {
-  const user = useUser<firebase.User>();
+  const history = useHistory();
   const { gameId } = useParams<GamePageParams>();
   const database = useDatabase();
-  const firestore = useFirestore();
 
   const gameDataRef = database.ref(`/games/${gameId}`);
   const gameData = useDatabaseObjectData<IGame>(gameDataRef);
 
-  const boardQuery = firestore.collection('boards').doc(gameData.board);
+  if (!gameData.board || !gameId) {
+    history.push('/');
+  }
 
-  const categoriesQuery = boardQuery.collection('categories');
+  const { categories, catQuestionMap } = useBoardData({
+    gameId,
+    board: gameData.board,
+  });
 
-  const categories = useFirestoreCollectionData<ICategory>(
-    categoriesQuery.orderBy('pos'),
-    {
-      idField: 'id',
-    },
-  );
-
-  const questionsQuery = boardQuery.collection('questions');
-
-  const questions = useFirestoreCollectionData<IQuestion>(
-    questionsQuery.orderBy('value'),
-    { idField: 'id' },
-  );
-
-  const catQuestionMap = categories.map((catData) => ({
-    ...catData,
-    questions: questions.filter((qData) => qData.categoryId === catData.id),
-  }));
-
-  const selectQuestion = (
-    questionId: string,
-    categoryId: string,
-    index: number,
-  ) => {
-    gameDataRef.child('selectedQuestions').push({
-      categoryId,
-      index,
+  const selectQuestion = (questionId: string) => {
+    gameDataRef.child('currentQuestion').remove();
+    gameDataRef.child('currentQuestion').set({
+      questionId,
     });
+    gameDataRef.child('questions').child(questionId).remove();
   };
 
   return (
@@ -85,9 +62,7 @@ const HostGame: React.FC = () => {
               key={qData.id}
               posX={catData.pos}
               posY={qData.value / 200 + 1}
-              onClick={() =>
-                selectQuestion(qData.id || '', catData.id || '', index)
-              }
+              onClick={() => selectQuestion(qData.id || '')}
             >
               <CardContainer>
                 <Card isSelectable>

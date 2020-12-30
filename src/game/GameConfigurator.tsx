@@ -47,7 +47,7 @@ const GameConfigurator: React.FC = () => {
       isFinished: false,
     });
 
-    history.push(`/game/play/${gameRef.key}`);
+    history.push(`/game/host/${gameRef.key}`);
   };
 
   return (

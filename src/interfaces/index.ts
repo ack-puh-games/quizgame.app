@@ -8,7 +8,7 @@ export interface IQuestion {
 }
 
 export interface ICategory {
-  id?: string;
+  id: string;
   name: string;
   pos: number;
 }
@@ -54,4 +54,11 @@ export interface IGame {
   isStarted: boolean;
   isFinished: boolean;
   winner: string;
+}
+
+export interface IUserVisibleQuestion {
+  id: string;
+  categoryId: string;
+  value: number;
+  index: number;
 }

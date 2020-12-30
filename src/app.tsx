@@ -10,6 +10,7 @@ import { preloadFirestore } from 'reactfire';
 
 // import PageViewLogger from './util/pageViewLogger';
 
+const ErrorBoundary = React.lazy(() => import('./components/ErrorBoundary'));
 const LoginPage = React.lazy(() => import('./login'));
 const EditorPage = React.lazy(() => import('./editor/Editor'));
 const BoardsListPage = React.lazy(() => import('./editor/BoardsList'));
@@ -28,7 +29,7 @@ const App = () => {
 
   return (
     <Router>
-      <div>
+      <ErrorBoundary>
         <NavBar />
         <Switch>
           <Route path="/editor/board/:boardId" render={() => <EditorPage />} />
@@ -40,7 +41,7 @@ const App = () => {
           <Route path="/login" render={() => <LoginPage />} />
           <Route path="/" render={() => <Redirect to="/game/new" />} />
         </Switch>
-      </div>
+      </ErrorBoundary>
 
       {/* Uncomment after upgrading Firebase dependency. QUIZ-13 */}
       {/* <PageViewLogger /> */}

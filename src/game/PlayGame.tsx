@@ -1,12 +1,6 @@
 import * as React from 'react';
-import {
-  useDatabase,
-  useDatabaseObjectData,
-  useDatabaseListData,
-  useFirestore,
-  useFirestoreCollectionData,
-} from 'reactfire';
-import { useParams } from 'react-router-dom';
+import { useDatabase, useDatabaseObjectData } from 'reactfire';
+import { useParams, useHistory } from 'react-router-dom';
 
 import {
   Card,
@@ -17,53 +11,29 @@ import {
   CommonWrapper,
   PageWrapper,
 } from '../components';
-import { ICategory, IGame } from '../interfaces';
+import { IGame } from '../interfaces';
+import { useBoardData } from './useBoardData';
 
 interface GamePageParams {
   gameId?: string;
 }
 
-interface IUserVisibleQuestion {
-  id?: string;
-  categoryId: string;
-  value: number;
-}
-
 const PlayGame: React.FC = () => {
+  const history = useHistory();
   const { gameId } = useParams<GamePageParams>();
   const database = useDatabase();
-  const firestore = useFirestore();
 
   const gameDataRef = database.ref(`/games/${gameId}`);
   const gameData = useDatabaseObjectData<IGame>(gameDataRef);
 
-  const boardQuery = firestore.collection('boards').doc(gameData.board);
+  if (!gameData.board || !gameId) {
+    history.push('/');
+  }
 
-  const categoriesQuery = boardQuery.collection('categories');
-
-  const categories = useFirestoreCollectionData<ICategory>(
-    categoriesQuery.orderBy('pos'),
-    {
-      idField: 'id',
-    },
-  );
-
-  const questionsRef = database.ref(`/games/${gameId}/questions`);
-
-  const questions = useDatabaseListData<IUserVisibleQuestion>(questionsRef);
-
-  const catQuestionMap = categories.map((catData) => ({
-    ...catData,
-    questions: questions
-      .filter((q) => q.categoryId === catData.id)
-      .sort((a, b) => a.value - b.value)
-      .map((qData) => ({
-        ...qData,
-        categoryId: catData.id,
-        // CSS grid is 1-indexed, plus an extra 1 to account for the category row.
-        index: qData.value / 200 + 1,
-      })),
-  }));
+  const { categories, catQuestionMap } = useBoardData({
+    gameId,
+    board: gameData.board,
+  });
 
   return (
     <CommonWrapper>
