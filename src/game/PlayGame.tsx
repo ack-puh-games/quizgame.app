@@ -37,7 +37,10 @@ const PlayGame: React.FC = () => {
     if (!currentUser) {
       return;
     }
-    if (!gameData.players || !gameData.players[currentUser.uid]) {
+    if (
+      gameData.board &&
+      (!gameData.players || !gameData.players[currentUser.uid])
+    ) {
       gameDataRef.child('players').child(currentUser.uid).set({
         id: currentUser.uid,
         connected: true,
