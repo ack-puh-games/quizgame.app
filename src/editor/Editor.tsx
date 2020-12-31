@@ -6,19 +6,19 @@ import {
 } from 'reactfire';
 import { useParams } from 'react-router-dom';
 
-import { CommonWrapper } from '../util/styled';
-
-import { Board, Category, Question } from './staticData';
 import {
+  CardGrid,
   CardWrapper,
+  CardContainer,
+  CardEditableData,
+  CommonWrapper,
   EditorCard,
-  EditorCardContainer,
-  EditorCardData,
-  EditorGrid,
   Header,
-  QuestionCategory,
-  QuestionValue,
-} from './styled';
+  PageWrapper,
+} from '../components';
+import { IBoard, ICategory, IQuestion } from '../interfaces';
+
+import { QuestionCategory, QuestionValue } from './styled';
 
 interface EditorPageParams {
   boardId?: string;
@@ -48,11 +48,11 @@ const EditableCard: React.FC<EditableCardProps> = ({
   };
 
   return (
-    <EditorCardContainer>
+    <CardContainer>
       <EditorCard>
-        <EditorCardData onChange={onInputChange} value={inputValue} />
+        <CardEditableData onChange={onInputChange} value={inputValue} />
       </EditorCard>
-    </EditorCardContainer>
+    </CardContainer>
   );
 };
 
@@ -62,11 +62,11 @@ const Editor: React.FC = () => {
 
   const boardQuery = firestore.collection('boards').doc(boardId);
 
-  const board = useFirestoreDocData<Board>(boardQuery);
+  const board = useFirestoreDocData<IBoard>(boardQuery);
 
   const categoriesQuery = boardQuery.collection('categories');
 
-  const categories = useFirestoreCollectionData<Category>(
+  const categories = useFirestoreCollectionData<ICategory>(
     categoriesQuery.orderBy('pos'),
     {
       idField: 'id',
@@ -75,7 +75,7 @@ const Editor: React.FC = () => {
 
   const questionsQuery = boardQuery.collection('questions');
 
-  const questions = useFirestoreCollectionData<Question>(
+  const questions = useFirestoreCollectionData<IQuestion>(
     questionsQuery.orderBy('value'),
     { idField: 'id' },
   );
@@ -88,7 +88,7 @@ const Editor: React.FC = () => {
   return (
     <CommonWrapper>
       <Header>{board.name}</Header>
-      <EditorGrid>
+      <CardGrid>
         {categories.map((catData) => (
           <CardWrapper key={catData.id} posX={catData.pos} posY={1}>
             <EditableCard
@@ -117,9 +117,15 @@ const Editor: React.FC = () => {
             </CardWrapper>
           )),
         )}
-      </EditorGrid>
+      </CardGrid>
     </CommonWrapper>
   );
 };
 
-export default Editor;
+const EditorPage: React.FC = () => (
+  <PageWrapper title="Board Editor" traceId="editor-page">
+    <Editor />
+  </PageWrapper>
+);
+
+export default EditorPage;

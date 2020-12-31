@@ -14,7 +14,6 @@
     "strictNullChecks": true,
     "esModuleInterop": true
   },
-  "files": ["twin.d.ts"],
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "twin.d.ts"],
   "exclude": ["node_modules"]
 }

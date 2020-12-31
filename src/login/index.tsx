@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import PageWrapper from '../util/PageWrapper';
-import { CommonWrapper } from '../util/styled';
+import { CommonWrapper, PageWrapper } from '../components';
 
 import LoginButton from './LoginButton';
 

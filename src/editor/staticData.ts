@@ -1,26 +1,3 @@
-export interface Question {
-  id?: string;
-  categoryId: string;
-  answer: string;
-  edited: boolean;
-  question: string;
-  value: number;
-}
-
-export interface Category {
-  id?: string;
-  name: string;
-  pos: number;
-}
-
-export interface Board {
-  id?: string;
-  created: number;
-  edited: number;
-  name: string;
-  owner: string;
-}
-
 export const defaultQuestions = [
   {
     question: '$200 Question',

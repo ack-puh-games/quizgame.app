@@ -3,7 +3,7 @@ import { AuthCheck } from 'reactfire';
 import { Helmet } from 'react-helmet';
 import { Redirect, useLocation } from 'react-router-dom';
 
-import Page from './Page';
+import { Page } from './';
 
 interface PageWrapperProps {
   authCheckRequired?: boolean;

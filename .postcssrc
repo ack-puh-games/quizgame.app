@@ -1,7 +1,9 @@
 {
   "plugins": {
     "postcss-import": {},
-    "tailwindcss": {},
+    "tailwindcss": {
+      "dataTwProp": true
+    },
     "autoprefixer": {}
   }
 }

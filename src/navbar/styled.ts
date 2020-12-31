@@ -36,7 +36,7 @@ export const NavItem = styled(Link)(({ to }) => {
 export const NavUserAvatarContainer = styled.div(() => [tw`relative ml-3`]);
 
 export const NavUserAvatarButton = styled.button(() => [
-  tw`flex text-sm bg-gray-800 rounded-full focus:outline-none focus:shadow-outline`,
+  tw`flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring`,
 ]);
 
 export const NavUserAvatar = styled(UserAvatar)(() => [tw`w-8 h-8`]);

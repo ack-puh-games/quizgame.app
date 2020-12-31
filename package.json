@@ -18,24 +18,14 @@
     "start": "parcel public/index.html",
     "typecheck": "tsc --noEmit"
   },
+  "targets": {
+    "main": {
+      "publicUrl": "/"
+    }
+  },
   "babelMacros": {
     "twin": {
-      "styled": {
-        "import": "default",
-        "from": "@emotion/styled"
-      },
-      "css": {
-        "import": "css",
-        "from": "@emotion/react"
-      },
-      "global": {
-        "import": "Global",
-        "from": "@emotion/react"
-      },
-      "config": "tailwind.config.js",
-      "debugProp": true,
-      "debugPlugins": false,
-      "debug": false
+      "preset": "emotion"
     }
   },
   "husky": {
@@ -49,49 +39,50 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-typescript": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/preset-typescript": "^7.12.7",
     "@emotion/babel-plugin-jsx-pragmatic": "^0.1.5",
     "@parcel/validator-typescript": "^2.0.0-alpha.3",
-    "@tailwindcss/custom-forms": "^0.2.1",
     "@tailwindcss/forms": "^0.2.1",
     "@tailwindcss/typography": "^0.3.1",
-    "@types/node": "12.19.6",
+    "@types/node": "^12.19.9",
     "@types/parcel-env": "^0.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-helmet": "^6.1.0",
     "@types/react-router-dom": "^5.1.6",
-    "@typescript-eslint/eslint-plugin": "^4.8.1",
-    "@typescript-eslint/parser": "^4.8.1",
-    "autoprefixer": "^10.0.2",
-    "babel-plugin-macros": "^2.8.0",
-    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
-    "eslint": "^7.14.0",
-    "eslint-config-prettier": "^6.15.0",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
+    "autoprefixer": "^10.1.0",
+    "babel-plugin-macros": "^3.0.0",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "firebase-tools": "^8.16.2",
-    "husky": "^4.3.0",
+    "firebase-tools": "^8.18.0",
+    "husky": "^4.3.5",
     "jest": "^26.6.3",
-    "parcel": "^2.0.0-nightly.446",
-    "postcss": "^8.1.9",
+    "parcel": "^2.0.0-nightly.474",
+    "postcss": "^8.2.1",
     "postcss-import": "^13.0.0",
-    "postcss-modules": "^3.2.2",
-    "prettier": "^2.2.0",
+    "postcss-modules": "^4.0.0",
+    "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "tailwind": "^4.0.0",
     "typescript": "^4.1.2"
   },
   "dependencies": {
-    "@emotion/react": "^11.1.1",
+    "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
-    "core-js": "3",
+    "core-js": "3.8.1",
     "firebase": "^7.21.1",
     "react": "^0.0.0-experimental-4ead6b530",
     "react-dom": "^0.0.0-experimental-4ead6b530",
@@ -99,7 +90,7 @@
     "react-router-dom": "^5.2.0",
     "reactfire": "^2.0.3",
     "regenerator-runtime": "^0.13.7",
-    "tailwindcss": "^1.9.0",
-    "twin.macro": "^1.12.1"
+    "tailwindcss": "^2.0.1",
+    "twin.macro": "^2.0.6"
   }
 }

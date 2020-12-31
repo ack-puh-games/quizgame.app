@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import tw, { css, styled } from 'twin.macro';
 
 import {
@@ -8,14 +7,8 @@ import {
   Modal,
 } from '../components';
 
-import { default as BoardIconComponent } from './BoardIcon';
-
 export const EmptyImage = styled(EmptyImageComponent)(() => [
   tw`w-full max-w-lg my-8`,
-]);
-
-export const Header = styled.span(() => [
-  tw`mb-8 font-sans text-2xl font-bold`,
 ]);
 
 export const ModalFormLabel = styled.label(() => [tw`block`]);
@@ -24,12 +17,11 @@ export const ModalFormLabelText = styled.span(() => [
   tw`text-sm font-medium text-gray-700`,
 ]);
 
-export const ModalFormInputWrapper = styled.div(() => [
-  tw`relative mt-1 rounded-md shadow-sm`,
-]);
+export const ModalFormInputWrapper = styled.div(() => [tw`relative mt-1`]);
 
 export const ModalFormInput = styled.input(() => [
-  tw`block w-full mt-1 form-input`,
+  tw`block! w-full! px-3! py-2! border! border-gray-300! rounded-md! shadow-sm!`,
+  tw`focus:outline-none! focus:ring-indigo-500! focus:border-indigo-500! sm:text-sm!`,
 ]);
 
 interface CreateBoardModalProps {
@@ -76,39 +68,6 @@ export const CreateBoardModal: React.FC<CreateBoardModalProps> = ({
   </Modal>
 );
 
-export const CardsContainer = styled.div(() => [
-  tw`flex flex-row flex-wrap mt-8`,
-]);
-
-export const BoardCardContainer = styled(Link)(() => [tw`w-64 h-32 m-2`]);
-
-export const BoardCard = styled.div(() => [
-  tw`flex flex-row p-4 bg-white rounded shadow-sm`,
-  tw`w-full h-full cursor-pointer hover:bg-gray-100`,
-]);
-
-export const BoardIconContainer = styled.div(() => [
-  tw`flex items-center justify-center flex-shrink-0 w-12 h-12`,
-  tw`text-blue-100 bg-gradient-to-br from-blue-300 to-indigo-700 rounded-xl`,
-]);
-
-export const BoardIcon = styled(BoardIconComponent)(() => [tw`w-8 h-8`]);
-
-export const BoardFlexColumn = styled.div(() => [
-  tw`flex flex-col flex-grow ml-4`,
-]);
-
-export const BoardCardHeader = styled.span(() => [tw`text-sm text-gray-500`]);
-
-export const BoardCardData = styled.span(() => [
-  tw`w-32 text-lg font-bold`,
-  css`
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  `,
-]);
-
 export const EmptyBoardCardContainer = styled.div(() => [
   tw`flex w-64 h-32 m-2 rounded-lg cursor-pointer hover:shadow-lg`,
 ]);
@@ -116,78 +75,22 @@ export const EmptyBoardCardContainer = styled.div(() => [
 export const EmptyBoardCard = styled.div(() => [
   tw`flex items-center justify-center w-full py-4 text-lg`,
   tw`font-medium border-2 border-gray-500 border-dashed rounded-lg`,
-  tw`hover:border-transparent hover:shadow-xs`,
+  tw`hover:border-transparent hover:shadow`,
   tw`transition-all duration-150 ease-in-out`,
 ]);
 
-export const EditorGrid = styled.div(() => [
-  css`
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    gap: 5px 5px;
-    grid-template-areas:
-      '. . . . . .'
-      '. . . . . .'
-      '. . . . . .'
-      '. . . . . .'
-      '. . . . . .'
-      '. . . . . .';
-  `,
-]);
-
-export const EditorCardContainer = styled.div(() => [tw`w-64 h-32 m-2`]);
-
-export const EditorCard = styled.div(() => [
-  tw`flex flex-row p-1 pb-6 bg-white rounded shadow-md`,
-  tw`w-full h-full`,
-  tw`items-center justify-center`,
-  tw`hocus:(shadow-outline) focus-within:shadow-outline`,
-]);
-
-export const EditorCardHeader = styled.span(() => [tw`text-sm text-gray-500`]);
-
-export const EditorCardData = styled.textarea(() => [
-  tw`w-full h-full text-lg font-bold border-0`,
-  css`
-    white-space: normal;
-    text-align: center;
-    resize: none;
-    box-shadow: none !important;
-  `,
-]);
-
-interface CardWrapperProps {
-  posX: number;
-  posY: number;
-}
-
-export const CardWrapper = styled.div<CardWrapperProps>(({ posX, posY }) => [
-  tw`relative`,
-  posX &&
-    css`
-      grid-column-start: ${posX};
-      grid-column-end: ${posX + 1};
-    `,
-  posY &&
-    css`
-      grid-row-start: ${posY};
-      grid-row-end: ${posY + 1};
-    `,
-]);
-
-export const QuestionField = styled.div(() => [
+export const ExtraDataField = styled.div(() => [
   tw`absolute text-xs font-semibold`,
 ]);
 
-export const QuestionValue = styled(QuestionField)(() => [
+export const QuestionValue = styled(ExtraDataField)(() => [
   css`
     bottom: 12px;
     left: 15px;
   `,
 ]);
 
-export const QuestionCategory = styled(QuestionField)(() => [
+export const QuestionCategory = styled(ExtraDataField)(() => [
   css`
     bottom: 12px;
     right: 15px;

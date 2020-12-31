@@ -24,17 +24,19 @@ interface ModalContainerProps {
   showModal: boolean;
 }
 
-const ModalBackground = styled.div(() => [
-  tw`fixed inset-0 z-40 bg-black opacity-25`,
+export const ModalBackground = styled.div(() => [
+  tw`fixed inset-0 z-10 bg-black opacity-25`,
 ]);
 
-const ModalContainer = styled.div<ModalContainerProps>(({ showModal }) => [
-  tw`flex items-center justify-center`,
-  tw`overflow-x-hidden overflow-y-auto`,
-  tw`fixed inset-0 z-50 outline-none focus:outline-none`,
-  tw`transition duration-200 ease-in-out`,
-  !showModal && tw`opacity-0 pointer-events-none`,
-]);
+export const ModalContainer = styled.div<ModalContainerProps>(
+  ({ showModal }) => [
+    tw`flex items-center justify-center`,
+    tw`overflow-x-hidden overflow-y-auto`,
+    tw`fixed inset-0 z-50 outline-none focus:outline-none`,
+    tw`transition duration-200 ease-in-out`,
+    !showModal && tw`opacity-0 pointer-events-none`,
+  ],
+);
 
 const ModalContentWrapper = styled.div<ModalContentWrapperProps>(({ size }) => [
   tw`relative z-50 w-auto mx-auto my-6`,
