@@ -32,7 +32,7 @@ export const Card = styled.div<CardProps>(({ isSelectable = false }) => [
 ]);
 
 export const CardEditableData = styled.textarea(() => [
-  tw`w-full h-full text-lg font-bold border-0`,
+  tw`w-full h-full overflow-x-hidden text-lg font-bold border-0`,
   css`
     white-space: normal;
     text-align: center;
