@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useDatabase, useDatabaseObjectData } from 'reactfire';
+import { useAuth, useDatabase, useDatabaseObjectData } from 'reactfire';
 import { useParams, useHistory } from 'react-router-dom';
 
 import {
@@ -21,6 +21,7 @@ interface GamePageParams {
 }
 
 const HostGame: React.FC = () => {
+  const { currentUser } = useAuth();
   const history = useHistory();
   const { gameId } = useParams<GamePageParams>();
   const database = useDatabase();
@@ -31,6 +32,12 @@ const HostGame: React.FC = () => {
   if (!gameData.board || !gameId) {
     history.push('/');
   }
+
+  React.useEffect(() => {
+    if (currentUser?.uid && !(currentUser?.uid === gameData.host)) {
+      return history.push(`/game/play/${gameId}`);
+    }
+  }, [currentUser]);
 
   const { categories, catQuestionMap } = useBoardData({
     gameId,
