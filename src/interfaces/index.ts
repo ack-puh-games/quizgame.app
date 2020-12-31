@@ -21,9 +21,16 @@ export interface IBoard {
   owner: string;
 }
 
-interface ISelectedQuestion {
-  categoryId: string;
-  index: number;
+export interface ICurrentQuestion {
+  buzzer: string;
+  buzzedAt: string;
+  createdAt: string;
+  failedContestants: string[];
+  isCorrect: boolean;
+  isUnlocked: boolean;
+  questionId: string;
+  questionText: string;
+  unlockedAt: string;
 }
 
 interface IPlayer {
@@ -39,17 +46,8 @@ export interface IGame {
   createdAt: string;
   startedAt?: string;
   finishedAt?: string;
-  selectedQuestions?: ISelectedQuestion[];
-  currentQuestion?: {
-    createdAt: string;
-    questionText: string;
-    isUnlocked: boolean;
-    unlockedAt: string;
-    answerer: string;
-    isAnswered: boolean;
-    isAnsweredCorrectly: boolean;
-  };
-  players: IPlayer[];
+  currentQuestion?: ICurrentQuestion;
+  players: { [index: string]: IPlayer[] };
   boardController: string;
   isStarted: boolean;
   isFinished: boolean;

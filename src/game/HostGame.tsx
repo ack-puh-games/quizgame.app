@@ -9,6 +9,7 @@ import {
   CardGrid,
   CardWrapper,
   CommonWrapper,
+  CurrentQuestion,
   PageWrapper,
 } from '../components';
 import { IGame } from '../interfaces';
@@ -73,6 +74,8 @@ const HostGame: React.FC = () => {
           )),
         )}
       </CardGrid>
+
+      <CurrentQuestion gameId={gameId || ''} isHosting />
     </CommonWrapper>
   );
 };

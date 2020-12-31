@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useDatabase, useDatabaseObjectData } from 'reactfire';
+import { useAuth, useDatabase, useDatabaseObjectData } from 'reactfire';
 import { useParams, useHistory } from 'react-router-dom';
 
 import {
@@ -9,6 +9,7 @@ import {
   CardGrid,
   CardWrapper,
   CommonWrapper,
+  CurrentQuestion,
   PageWrapper,
 } from '../components';
 import { IGame } from '../interfaces';
@@ -19,6 +20,7 @@ interface GamePageParams {
 }
 
 const PlayGame: React.FC = () => {
+  const { currentUser } = useAuth();
   const history = useHistory();
   const { gameId } = useParams<GamePageParams>();
   const database = useDatabase();
@@ -29,6 +31,33 @@ const PlayGame: React.FC = () => {
   if (!gameData.board || !gameId) {
     history.push('/');
   }
+
+  // runs when currentUser changes
+  React.useEffect(() => {
+    if (!currentUser) {
+      return;
+    }
+    if (!gameData.players || !gameData.players[currentUser.uid]) {
+      gameDataRef.child('players').child(currentUser.uid).set({
+        id: currentUser.uid,
+        currentScore: 0,
+        connected: true,
+      });
+    } else {
+      gameDataRef
+        .child('players')
+        .child(currentUser.uid)
+        .child('connected')
+        .set(true);
+    }
+
+    gameDataRef
+      .child('players')
+      .child(currentUser.uid)
+      .child('connected')
+      .onDisconnect()
+      .set(false);
+  }, [currentUser]);
 
   const { categories, catQuestionMap } = useBoardData({
     gameId,
@@ -63,6 +92,8 @@ const PlayGame: React.FC = () => {
           )),
         )}
       </CardGrid>
+
+      <CurrentQuestion gameId={gameId || ''} isHosting={false} />
     </CommonWrapper>
   );
 };

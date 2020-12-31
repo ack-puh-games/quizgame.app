@@ -65,10 +65,93 @@ export const onNewCurrentQuestion = functions.database
         const qData = questionDoc.data();
 
         if (qData) {
-          return snapshot.ref.child('questionText').set(qData.question);
+          return snapshot.ref.set({
+            createdAt: admin.database.ServerValue.TIMESTAMP,
+            questionId: snapshot.val().questionId,
+            questionText: qData.question,
+            questionValue: qData.value,
+          });
         }
 
         return null;
+      });
+  });
+
+export const onQuestionUnlock = functions.database
+  .ref('/games/{gameId}/currentQuestion/isUnlocked')
+  .onCreate(async (snapshot) => {
+    return snapshot.ref.parent
+      ?.child('unlockedAt')
+      .set(admin.database.ServerValue.TIMESTAMP);
+  });
+
+export const onQuestionBuzzer = functions.database
+  .ref('/games/{gameId}/currentQuestion/buzzer')
+  .onCreate(async (snapshot) => {
+    return snapshot.ref.parent
+      ?.child('buzzedAt')
+      .set(admin.database.ServerValue.TIMESTAMP);
+  });
+
+export const onQuestionAnswered = functions.database
+  .ref('/games/{gameId}/currentQuestion/isCorrect')
+  .onCreate(async (snapshot) => {
+    const isCorrect = snapshot.val();
+
+    // get the player ID of the last buzzer
+    const getPlayerId = snapshot.ref.parent
+      ?.child('buzzer')
+      .once('value')
+      .then((v) => v?.val());
+
+    // get the value of the question
+    const getQuestionValue = snapshot.ref.parent
+      ?.child('questionValue')
+      .once('value')
+      .then((v) => v?.val());
+
+    // lump everything together
+    return Promise.all([getPlayerId, getQuestionValue])
+      .then(([playerId, questionValue]) => {
+        // find the buzzer's current score ref
+        const playerScoreRef = snapshot.ref.parent?.parent
+          ?.child('players')
+          ?.child(playerId)
+          ?.child('currentScore');
+
+        // get the current score value, pass on to next .then
+        return Promise.all([
+          playerScoreRef?.once('value').then((v) => v?.val()),
+          playerScoreRef,
+          questionValue,
+        ]);
+      })
+      .then(([playerScore, playerScoreRef, questionValue]) => {
+        // if correct, new score is current + value, else current - value.
+        if (isCorrect) {
+          return playerScoreRef?.set(playerScore + questionValue);
+        } else {
+          return playerScoreRef?.set(playerScore - questionValue);
+        }
+      })
+      .then(() => {
+        // if correct, clear currentQuestion
+        if (isCorrect) {
+          return snapshot.ref.parent?.remove();
+        } else {
+          // if incorrect, clear buzzer info and add player to failedContestants
+          return Promise.resolve(getPlayerId).then((playerId) =>
+            Promise.all([
+              snapshot.ref.parent?.child('buzzedAt').remove(),
+              snapshot.ref.parent?.child('buzzer').remove(),
+              snapshot.ref.parent?.child('isCorrect').remove(),
+              snapshot.ref.parent
+                ?.child('failedContestants')
+                .child(playerId)
+                .set(true),
+            ]),
+          );
+        }
       });
   });
 
