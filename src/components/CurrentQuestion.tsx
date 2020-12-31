@@ -14,8 +14,17 @@ const Wrapper = styled.div(() => [
 const InnerWrapper = styled.div(() => [
   tw`flex items-center justify-center h-full px-4 pt-4 pb-20 text-center sm:p-0`,
 ]);
+
 const BackgroundWrapper = styled.div(() => [
-  tw`fixed inset-0 transition-opacity`,
+  tw`fixed inset-0`,
+  css`
+    transition: 0.4s backdrop-filter ease-in-out;
+    backdrop-filter: blur(0px);
+
+    &.blur {
+      backdrop-filter: blur(4px);
+    }
+  `,
 ]);
 const Background = styled.div(() => [tw`absolute inset-0 bg-black opacity-25`]);
 const FullScreenCard = styled(Card)(() => [
@@ -157,7 +166,7 @@ export const CurrentQuestionModal: React.FC<CurrentQuestionModalProps> = ({
       <ModalContainer showModal={showModal}>
         <Wrapper>
           <InnerWrapper>
-            <BackgroundWrapper>
+            <BackgroundWrapper className={`${showModal ? 'blur' : ''}`}>
               <Background />
             </BackgroundWrapper>
             <FullScreenCard>
