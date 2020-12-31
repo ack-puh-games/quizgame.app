@@ -6,6 +6,7 @@ import { ICurrentQuestion } from '../interfaces';
 
 import { Card } from './Card';
 import { ModalContainer } from './Modal';
+import LoadingIconComponent from './LoadingIcon';
 
 const Wrapper = styled.div(() => [
   tw`fixed inset-0 z-10 flex items-center justify-center overflow-hidden`,
@@ -20,11 +21,20 @@ const Background = styled.div(() => [tw`absolute inset-0 bg-black opacity-25`]);
 const FullScreenCard = styled(Card)(() => [
   tw`inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom bg-white rounded-lg shadow-xl`,
   tw`transition-all transform sm:my-8 sm:align-middle sm:w-full sm:p-6`,
+  tw`flex items-center justify-center`,
   css`
     height: 50vh !important;
     width: 80vw !important;
   `,
 ]);
+const LoadingIcon = styled(LoadingIconComponent)(() => [
+  tw`w-32 h-32 text-black`,
+]);
+const QuestionText = styled.span(() => [tw`text-6xl font-bold`]);
+const QuestionValue = styled.span(() => [
+  tw`absolute text-4xl font-bold top-5 right-5`,
+]);
+const BottomLeft = styled.div(() => [tw`absolute bottom-5 left-5`]);
 
 const unlockQuestion = (questionRef: firebase.database.Reference) => {
   questionRef.child('isUnlocked').set(true);
@@ -47,6 +57,42 @@ const buzzer = (
   }
 
   questionRef.child('buzzer').set(user.uid);
+};
+
+interface QuestionModalContentsProps {
+  state: string;
+  question: ICurrentQuestion;
+}
+
+const QuestionModalContents = ({
+  state,
+  question,
+}: QuestionModalContentsProps) => {
+  if (state === 'noQuestion' || state === 'loading') {
+    return null;
+  }
+
+  return (
+    <>
+      <QuestionText>{question.questionText}</QuestionText>
+      <QuestionValue>${question.questionValue}</QuestionValue>
+    </>
+  );
+};
+
+interface HostButtonsProps {
+  state: string;
+  questionRef: firebase.database.Reference;
+}
+
+const HostButtons = ({ state, questionRef }: HostButtonsProps) => {
+  return (
+    <BottomLeft>
+      <button onClick={() => unlockQuestion(questionRef)}>Unlock!</button>
+      <button onClick={() => correctAnswer(questionRef)}>Correct!</button>
+      <button onClick={() => incorrectAnswer(questionRef)}>Incorrect!</button>
+    </BottomLeft>
+  );
 };
 
 interface CurrentQuestionModalProps {
@@ -108,35 +154,30 @@ export const CurrentQuestionModal: React.FC<CurrentQuestionModalProps> = ({
               <Background />
             </BackgroundWrapper>
             <FullScreenCard>
-              <pre>
-                {JSON.stringify(
-                  { isHosting, currentState, currentQuestion },
-                  null,
-                  2,
-                )}
-              </pre>
-
-              {isHosting && currentState === 'waitingForUnlock' ? (
-                <button onClick={() => unlockQuestion(currentQuestionRef)}>
-                  Unlock!
-                </button>
+              {currentState === 'noQuestion' || currentState === 'loading' ? (
+                <LoadingIcon />
               ) : null}
 
-              {isHosting && currentState === 'buzzed' ? (
-                <>
-                  <button onClick={() => correctAnswer(currentQuestionRef)}>
-                    Correct!
-                  </button>
-                  <button onClick={() => incorrectAnswer(currentQuestionRef)}>
-                    Incorrect!
-                  </button>
-                </>
+              <QuestionModalContents
+                question={currentQuestion}
+                state={currentState}
+              />
+
+              {isHosting ? (
+                <HostButtons
+                  state={currentState}
+                  questionRef={currentQuestionRef}
+                />
               ) : null}
 
               {!isHosting && currentState === 'unlocked' ? (
-                <button onClick={() => buzzer(currentQuestionRef, currentUser)}>
-                  Buzzer
-                </button>
+                <BottomLeft>
+                  <button
+                    onClick={() => buzzer(currentQuestionRef, currentUser)}
+                  >
+                    Buzzer
+                  </button>
+                </BottomLeft>
               ) : null}
             </FullScreenCard>
           </InnerWrapper>

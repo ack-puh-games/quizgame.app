@@ -2,7 +2,6 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
 const ONE_HOUR = 1000 * 60 * 60;
-const TWO_HOURS = ONE_HOUR * 2;
 
 admin.initializeApp();
 
@@ -155,6 +154,44 @@ export const onQuestionAnswered = functions.database
       });
   });
 
+export const onNewPlayer = functions.database
+  .ref('/games/{gameId}/players/{playerId}')
+  .onCreate(async (snapshot) => {
+    return snapshot.ref.child('currentScore').set(0);
+  });
+
+export const onNewFailedContestant = functions.database
+  .ref('/games/{gameId}/currentQuestion/failedContestants/{playerId}')
+  .onCreate(async (snapshot) => {
+    const getConnectedPlayersCount =
+      snapshot.ref.parent?.parent?.parent
+        ?.child('players')
+        .once('value')
+        .then((v) => v.val())
+        .then((o) => Object.values(o).filter((v: any) => v.connected))
+        .then((v) => v.length) || 0;
+
+    const getFailedContestantsCount =
+      snapshot.ref.parent
+        ?.once('value')
+        .then((v) => v.val())
+        .then((o) => Object.values(o))
+        .then((v) => v.length) || 0;
+
+    return Promise.all([
+      getConnectedPlayersCount,
+      getFailedContestantsCount,
+    ]).then(([connectedPlayersCount, failedContestantsCount]) => {
+      // eslint-disable-next-line no-console
+      console.log({ connectedPlayersCount, failedContestantsCount });
+      if (failedContestantsCount >= connectedPlayersCount) {
+        return snapshot.ref.parent?.parent?.remove();
+      }
+
+      return;
+    });
+  });
+
 // run every hour at the top of the hour.
 export const clearExpiredGames = functions
   .runWith({
@@ -168,7 +205,7 @@ export const clearExpiredGames = functions
     return gamesRef.orderByChild('createdAt').on('child_added', (snapshot) => {
       const createdAt = snapshot.child('createdAt').val();
 
-      if (Date.now() - createdAt >= TWO_HOURS) {
+      if (Date.now() - createdAt >= ONE_HOUR * 5) {
         snapshot.ref.remove();
       }
     });

@@ -5,6 +5,7 @@ export { default as CommonWrapper } from './CommonWrapper';
 export { default as CurrentQuestion } from './CurrentQuestion';
 export { default as EmptyImage } from './EmptyImage';
 export * from './Header';
+export { default as LoadingIcon } from './LoadingIcon';
 export { default as Modal } from './Modal';
 export * from './Page';
 export { default as PageWrapper } from './PageWrapper';

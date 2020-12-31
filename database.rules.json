@@ -6,6 +6,14 @@
       "$gameId": {
         ".write": "auth != null && ((!data.exists() && newData.child('host').val() === auth.uid) || (data.exists() && data.child('host').val() === auth.uid))",
         ".read": true,
+        "players": {
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid",
+            "currentScore": {
+              ".write": false
+            }
+          }
+        },
         "currentQuestion": {
           "buzzer": {
             ".write": "auth != null && auth.uid == newData.val()",

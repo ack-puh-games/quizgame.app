@@ -30,6 +30,7 @@ export interface ICurrentQuestion {
   isUnlocked: boolean;
   questionId: string;
   questionText: string;
+  questionValue: number;
   unlockedAt: string;
 }
 
