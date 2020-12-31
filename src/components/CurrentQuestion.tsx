@@ -19,18 +19,25 @@ const BackgroundWrapper = styled.div(() => [
 ]);
 const Background = styled.div(() => [tw`absolute inset-0 bg-black opacity-25`]);
 const FullScreenCard = styled(Card)(() => [
-  tw`inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom bg-white rounded-lg shadow-xl`,
-  tw`transition-all transform sm:my-8 sm:align-middle sm:w-full sm:p-6`,
-  tw`flex items-center justify-center`,
+  tw`overflow-hidden text-center bg-white rounded-lg shadow-xl`,
+  tw`flex items-center justify-center transition-all transform`,
   css`
-    height: 50vh !important;
-    width: 80vw !important;
+    height: 45% !important;
+    width: 45% !important;
+    min-height: 645px;
+    min-width: 1100px;
+    padding: 0 2%;
   `,
 ]);
 const LoadingIcon = styled(LoadingIconComponent)(() => [
   tw`w-32 h-32 text-black`,
 ]);
-const QuestionText = styled.span(() => [tw`text-6xl font-bold`]);
+const QuestionText = styled.span(() => [
+  tw`text-6xl font-bold`,
+  css`
+    line-height: 1.2em;
+  `,
+]);
 const QuestionValue = styled.span(() => [
   tw`absolute text-4xl font-bold top-5 right-5`,
 ]);

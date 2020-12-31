@@ -25,7 +25,7 @@ interface CardProps {
 
 export const Card = styled.div<CardProps>(({ isSelectable = false }) => [
   tw`flex flex-row bg-white rounded shadow-md`,
-  tw`w-full h-full select-none`,
+  tw`w-full h-full px-1 select-none`,
   tw`items-center justify-center`,
   isSelectable && tw`hocus:(ring) focus-within:ring cursor-pointer`,
   !isSelectable && tw`cursor-default`,
@@ -49,7 +49,7 @@ interface CardDataProps {
 export const CardData = styled.div<CardDataProps>(
   ({ isLargeText = false, isSmallText = false }) => [
     tw`flex items-center justify-center text-center`,
-    tw`text-4xl font-extrabold border-0`,
+    tw`text-3xl font-extrabold border-0`,
     isLargeText && tw`text-6xl`,
     isSmallText && tw`text-xl`,
   ],
