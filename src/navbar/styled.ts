@@ -3,7 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { UserAvatar } from '../components';
 
-export const NavContainer = styled.nav(() => [tw`bg-gray-800`]);
+export const NavContainer = styled.nav(() => [
+  tw`bg-gray-600 shadow-lg ring-2 ring-purple-300`,
+]);
 
 export const StyledNavBar = styled.div(() => [
   tw`max-w-6xl px-2 mx-auto sm:px-6 lg:px-8`,

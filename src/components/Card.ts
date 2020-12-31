@@ -1,4 +1,4 @@
-import tw, { css, styled } from 'twin.macro';
+import tw, { css, styled, theme } from 'twin.macro';
 
 export const CardGrid = styled.div(() => [
   css`
@@ -13,10 +13,10 @@ export const CardsContainer = styled.div(() => [tw`flex flex-row flex-wrap`]);
 export const CardContainer = styled.div(() => [tw`w-64 h-32 m-1`]);
 
 export const EditorCard = styled.div(() => [
-  tw`flex flex-row p-1 pb-6 bg-white rounded shadow-md`,
+  tw`flex flex-row p-1 pb-6 text-gray-200 bg-gray-700 rounded shadow-md`,
   tw`w-full h-full`,
   tw`items-center justify-center`,
-  tw`hocus:(ring) focus-within:ring`,
+  tw`hocus:(ring) focus-within:ring ring-purple-300`,
 ]);
 
 interface CardProps {
@@ -24,20 +24,47 @@ interface CardProps {
 }
 
 export const Card = styled.div<CardProps>(({ isSelectable = false }) => [
-  tw`flex flex-row bg-white rounded shadow-md`,
+  tw`flex flex-row text-gray-200 bg-gray-700 rounded shadow-md`,
   tw`w-full h-full px-1 select-none`,
   tw`items-center justify-center`,
-  isSelectable && tw`hocus:(ring) focus-within:ring cursor-pointer`,
+  isSelectable &&
+    tw`hocus:(ring) focus-within:ring cursor-pointer ring-purple-300`,
   !isSelectable && tw`cursor-default`,
 ]);
 
 export const CardEditableData = styled.textarea(() => [
-  tw`w-full h-full overflow-x-hidden text-lg font-bold border-0`,
+  tw`w-full h-full overflow-x-hidden text-lg font-bold bg-gray-700 border-0`,
   css`
     white-space: normal;
     text-align: center;
     resize: none;
     box-shadow: none !important;
+    padding: 0 4px;
+  `,
+  css`
+    /* width */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      border-radius: 100vh;
+      background: ${theme`colors.purple.400`};
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${theme`colors.purple.300`};
+      border-radius: 100vh;
+      border: 1px solid ${theme`colors.purple.200`};
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: ${theme`colors.purple.400`};
+    }
   `,
 ]);
 

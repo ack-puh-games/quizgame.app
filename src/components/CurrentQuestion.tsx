@@ -19,7 +19,7 @@ const BackgroundWrapper = styled.div(() => [
 ]);
 const Background = styled.div(() => [tw`absolute inset-0 bg-black opacity-25`]);
 const FullScreenCard = styled(Card)(() => [
-  tw`overflow-hidden text-center bg-white rounded-lg shadow-xl`,
+  tw`overflow-hidden text-center bg-gray-800 rounded-lg shadow-xl ring-2 ring-purple-300`,
   tw`flex items-center justify-center transition-all transform`,
   css`
     height: 45% !important;
@@ -30,7 +30,7 @@ const FullScreenCard = styled(Card)(() => [
   `,
 ]);
 const LoadingIcon = styled(LoadingIconComponent)(() => [
-  tw`w-32 h-32 text-black`,
+  tw`w-32 h-32 text-purple-300`,
 ]);
 const QuestionText = styled.span(() => [
   tw`text-6xl font-bold`,

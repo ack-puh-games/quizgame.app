@@ -10,8 +10,8 @@ export { BoardIconComponent };
 export const BoardCardContainer = styled.div(() => [tw`w-64 h-32 m-2`]);
 
 export const BoardCard = styled.div(() => [
-  tw`flex flex-row p-4 bg-white rounded shadow-sm`,
-  tw`w-full h-full cursor-pointer hover:bg-gray-100`,
+  tw`flex flex-row p-4 text-gray-200 bg-gray-700 rounded shadow-sm`,
+  tw`w-full h-full cursor-pointer hover:bg-gray-600`,
 ]);
 
 export const BoardIconContainer = styled.div(() => [

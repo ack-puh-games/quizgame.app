@@ -11,7 +11,7 @@ import App from './app';
 import firebaseConfig from './util/firebaseConfig';
 
 const AppContainer = styled.div(() => [
-  tw`min-h-full text-gray-800 bg-gray-200`,
+  tw`min-h-full text-gray-200 bg-gray-800`,
 ]);
 
 const AppWrapper: React.FC = () => (
