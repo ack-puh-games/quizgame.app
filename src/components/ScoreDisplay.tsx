@@ -14,10 +14,11 @@ interface SlideOutProps {
 
 const SlideOut = styled.div<SlideOutProps>(({ isOpen }) => [
   tw`fixed top-0 bottom-0 transition-all bg-gray-500 cursor-pointer pointer-events-auto w-96`,
-  tw`z-30 shadow-xl`,
+  tw`shadow-xl`,
   css`
     user-select: none;
     right: -24rem;
+    z-index: 100;
   `,
   isOpen && tw`right-0`,
 ]);
@@ -67,7 +68,7 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
             <UserAvatar src={player.image} />
             <Column>
               <PlayerScore>
-                {player.currentScore.toLocaleString('en-US', {
+                {player.currentScore?.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD',
                   minimumFractionDigits: 0,

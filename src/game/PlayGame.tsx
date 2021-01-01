@@ -10,6 +10,7 @@ import {
   CardWrapper,
   CommonWrapper,
   CurrentQuestion,
+  GameComplete,
   PageWrapper,
   ScoreDisplay,
 } from '../components';
@@ -107,6 +108,7 @@ const PlayGame: React.FC = () => {
 
       <CurrentQuestion gameId={gameId || ''} isHosting={false} />
       <ScoreDisplay gameId={gameId || ''} />
+      <GameComplete gameId={gameId || ''} />
     </CommonWrapper>
   );
 };

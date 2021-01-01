@@ -324,83 +324,73 @@ export const CurrentQuestionModal: React.FC<CurrentQuestionModalProps> = ({
   }, [currentQuestion, currentState]);
 
   return (
-    <>
-      <ModalContainer showModal={showModal}>
-        <Wrapper>
-          <InnerWrapper>
-            <BackgroundWrapper className={`${showModal ? 'blur' : ''}`}>
-              <Background />
-            </BackgroundWrapper>
-            <FullScreenCard
-              onClick={() =>
-                cardOnClick(
-                  currentState,
-                  isHosting,
-                  currentQuestionRef,
-                  currentUser,
-                )
-              }
-              isWaitingForBackend={
-                currentState === 'waitingForBackend' ||
-                currentState === 'loading'
-              }
-              isAnswered={
-                currentQuestion.isCorrect !== undefined ||
-                currentQuestion.isDead
-              }
-              isCorrectAnswer={currentState === 'correctAnswer'}
-              isInteractable={getInteractableFromState(currentState, isHosting)}
-            >
-              {currentState === 'noQuestion' || currentState === 'loading' ? (
-                <LoadingIcon />
+    <ModalContainer showModal={showModal}>
+      <Wrapper>
+        <InnerWrapper>
+          <BackgroundWrapper className={`${showModal ? 'blur' : ''}`}>
+            <Background />
+          </BackgroundWrapper>
+          <FullScreenCard
+            onClick={() =>
+              cardOnClick(
+                currentState,
+                isHosting,
+                currentQuestionRef,
+                currentUser,
+              )
+            }
+            isWaitingForBackend={
+              currentState === 'waitingForBackend' || currentState === 'loading'
+            }
+            isAnswered={
+              currentQuestion.isCorrect !== undefined || currentQuestion.isDead
+            }
+            isCorrectAnswer={currentState === 'correctAnswer'}
+            isInteractable={getInteractableFromState(currentState, isHosting)}
+          >
+            {currentState === 'noQuestion' || currentState === 'loading' ? (
+              <LoadingIcon />
+            ) : null}
+
+            <QuestionModalContents
+              question={currentQuestion}
+              state={currentState}
+            />
+
+            {currentState === 'unlocked' || currentState === 'buzzed' ? (
+              <Timer timerWidth={timerWidth} />
+            ) : null}
+
+            <TopLeft>
+              {currentState === 'waitingForUnlock' ? <IconLockClosed /> : null}
+              {currentState === 'unlocked' ? <IconLockOpen /> : null}
+              {currentState === 'buzzed' ? <IconClock /> : null}
+              {currentState === 'waitingForBackend' ? (
+                <LoadingIconSmall />
               ) : null}
+            </TopLeft>
 
-              <QuestionModalContents
-                question={currentQuestion}
-                state={currentState}
-              />
-
-              {currentState === 'unlocked' || currentState === 'buzzed' ? (
-                <Timer timerWidth={timerWidth} />
+            <BuzzerControls shouldShow={currentState === 'buzzed'}>
+              {isHosting ? (
+                <span>
+                  <GreenIcon onClick={() => correctAnswer(currentQuestionRef)}>
+                    <IconCheckCircle />
+                  </GreenIcon>
+                </span>
               ) : null}
-
-              <TopLeft>
-                {currentState === 'waitingForUnlock' ? (
-                  <IconLockClosed />
-                ) : null}
-                {currentState === 'unlocked' ? <IconLockOpen /> : null}
-                {currentState === 'buzzed' ? <IconClock /> : null}
-                {currentState === 'waitingForBackend' ? (
-                  <LoadingIconSmall />
-                ) : null}
-              </TopLeft>
-
-              <BuzzerControls shouldShow={currentState === 'buzzed'}>
-                {isHosting ? (
-                  <span>
-                    <GreenIcon
-                      onClick={() => correctAnswer(currentQuestionRef)}
-                    >
-                      <IconCheckCircle />
-                    </GreenIcon>
-                  </span>
-                ) : null}
-                <FillSpace>{buzzerUser}</FillSpace>
-                {isHosting ? (
-                  <span>
-                    <RedIcon
-                      onClick={() => incorrectAnswer(currentQuestionRef)}
-                    >
-                      <IconXCircle />
-                    </RedIcon>
-                  </span>
-                ) : null}
-              </BuzzerControls>
-            </FullScreenCard>
-          </InnerWrapper>
-        </Wrapper>
-      </ModalContainer>
-    </>
+              <FillSpace>{buzzerUser}</FillSpace>
+              {isHosting ? (
+                <span>
+                  <RedIcon onClick={() => incorrectAnswer(currentQuestionRef)}>
+                    <IconXCircle />
+                  </RedIcon>
+                </span>
+              ) : null}
+            </BuzzerControls>
+          </FullScreenCard>
+        </InnerWrapper>
+      </Wrapper>
+    </ModalContainer>
   );
 };
 
