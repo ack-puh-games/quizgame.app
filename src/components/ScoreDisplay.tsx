@@ -56,15 +56,17 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
   return (
     <SlideOut isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
       <Control onClick={() => setIsOpen(!isOpen)}>Scores</Control>
-      {players.map((player) => (
-        <UserCard key={player.id}>
-          <UserAvatar src={player.image} />
-          <Column>
-            <PlayerScore>${player.currentScore}</PlayerScore>
-            <PlayerName>{player.name}</PlayerName>
-          </Column>
-        </UserCard>
-      ))}
+      {players
+        .sort((a, b) => b.currentScore - a.currentScore)
+        .map((player) => (
+          <UserCard key={player.id}>
+            <UserAvatar src={player.image} />
+            <Column>
+              <PlayerScore>${player.currentScore}</PlayerScore>
+              <PlayerName>{player.name}</PlayerName>
+            </Column>
+          </UserCard>
+        ))}
     </SlideOut>
   );
 };
