@@ -23,20 +23,23 @@ export interface IBoard {
 
 export interface ICurrentQuestion {
   buzzer: string;
-  buzzedAt: string;
-  createdAt: string;
+  buzzedAt: number;
+  createdAt: number;
   failedContestants: string[];
   isCorrect: boolean;
+  isDead: boolean;
   isUnlocked: boolean;
   questionId: string;
   questionText: string;
   questionValue: number;
-  unlockedAt: string;
+  unlockedAt: number;
 }
 
-interface IPlayer {
+export interface IPlayer {
   id: string;
   currentScore: number;
+  name: string;
+  image: string;
 }
 
 export interface IGame {

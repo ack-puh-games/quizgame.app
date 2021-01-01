@@ -11,6 +11,9 @@
             ".write": "auth != null && auth.uid == $uid",
             "currentScore": {
               ".write": false
+            },
+            "connected": {
+              ".validate": "data.parent().parent().parent().exists()"
             }
           }
         },
@@ -18,6 +21,9 @@
           "buzzer": {
             ".write": "auth != null && auth.uid == newData.val()",
             ".validate": "!data.exists() && data.parent().parent().child('players').child(newData.val()).exists() && data.parent().child('isUnlocked').exists() && data.parent().child('unlockedAt').exists() && !data.parent().child('failedContestants').child(newData.val()).exists()"
+          },
+          "isDead": {
+            ".validate": "data.parent().exists()"
           }
         }
       }

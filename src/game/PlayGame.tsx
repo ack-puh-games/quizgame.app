@@ -11,6 +11,7 @@ import {
   CommonWrapper,
   CurrentQuestion,
   PageWrapper,
+  ScoreDisplay,
 } from '../components';
 import { IGame } from '../interfaces';
 import { useBoardData } from './useBoardData';
@@ -44,6 +45,8 @@ const PlayGame: React.FC = () => {
       gameDataRef.child('players').child(currentUser.uid).set({
         id: currentUser.uid,
         connected: true,
+        name: currentUser.displayName,
+        image: currentUser.photoURL,
       });
     } else {
       gameDataRef
@@ -96,6 +99,7 @@ const PlayGame: React.FC = () => {
       </CardGrid>
 
       <CurrentQuestion gameId={gameId || ''} isHosting={false} />
+      <ScoreDisplay gameId={gameId || ''} />
     </CommonWrapper>
   );
 };

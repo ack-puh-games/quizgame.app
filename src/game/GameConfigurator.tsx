@@ -43,8 +43,6 @@ const GameConfigurator: React.FC = () => {
       host: user.uid,
       board: boardId,
       createdAt: firebase.database.ServerValue.TIMESTAMP,
-      isStarted: false,
-      isFinished: false,
     });
 
     history.push(`/game/host/${gameRef.key}`);
