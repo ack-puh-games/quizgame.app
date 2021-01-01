@@ -40,6 +40,7 @@ export interface IPlayer {
   currentScore: number;
   name: string;
   image: string;
+  connected: boolean;
 }
 
 export interface IGame {

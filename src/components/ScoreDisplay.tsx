@@ -4,6 +4,10 @@ import { useDatabase, useDatabaseListData } from 'reactfire';
 
 import { IPlayer } from '../interfaces';
 
+import { IconExclamation } from '.';
+
+const Icon = styled.div(() => [tw`w-10 h-10 ml-5 text-yellow-300`]);
+
 interface SlideOutProps {
   isOpen: boolean;
 }
@@ -65,6 +69,11 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
               <PlayerScore>${player.currentScore}</PlayerScore>
               <PlayerName>{player.name}</PlayerName>
             </Column>
+            {!player.connected ? (
+              <Icon>
+                <IconExclamation />
+              </Icon>
+            ) : null}
           </UserCard>
         ))}
     </SlideOut>

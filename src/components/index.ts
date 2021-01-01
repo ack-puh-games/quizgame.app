@@ -7,6 +7,7 @@ export { default as EmptyImage } from './EmptyImage';
 export * from './Header';
 export { default as IconCheckCircle } from './IconCheckCircle';
 export { default as IconClock } from './IconClock';
+export { default as IconExclamation } from './IconExclamation';
 export { default as IconLoading } from './IconLoading';
 export { default as IconLockClosed } from './IconLockClosed';
 export { default as IconLockOpen } from './IconLockOpen';
