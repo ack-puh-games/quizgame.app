@@ -92,6 +92,12 @@ export const onQuestionBuzzer = functions.database
       .set(admin.database.ServerValue.TIMESTAMP);
   });
 
+export const onQuestionDead = functions.database
+  .ref('/games/{gameId}/currentQuestion/isDead')
+  .onCreate(async (snapshot) => {
+    return snapshot.ref.parent?.remove();
+  });
+
 export const onQuestionAnswered = functions.database
   .ref('/games/{gameId}/currentQuestion/isCorrect')
   .onCreate(async (snapshot) => {
@@ -141,6 +147,9 @@ export const onQuestionAnswered = functions.database
           // if incorrect, clear buzzer info and add player to failedContestants
           return Promise.resolve(getPlayerId).then((playerId) =>
             Promise.all([
+              snapshot.ref.parent
+                ?.child('unlockedAt')
+                .set(admin.database.ServerValue.TIMESTAMP),
               snapshot.ref.parent?.child('buzzedAt').remove(),
               snapshot.ref.parent?.child('buzzer').remove(),
               snapshot.ref.parent?.child('isCorrect').remove(),
