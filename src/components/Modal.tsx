@@ -46,7 +46,7 @@ const ModalContentWrapper = styled.div<ModalContentWrapperProps>(({ size }) => [
 ]);
 
 const ModalContent = styled.div(() => [
-  tw`relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none`,
+  tw`relative flex flex-col w-full text-gray-200 bg-gray-700 border-0 rounded-lg shadow-lg outline-none focus:outline-none`,
 ]);
 
 const ModalHeader = styled.div(() => [
@@ -56,7 +56,7 @@ const ModalHeader = styled.div(() => [
 const ModalTitle = styled.div(() => [tw`mr-12 text-3xl font-semibold`]);
 
 const ModalCloseButton = styled.button(() => [
-  tw`absolute inset-auto p-1 ml-auto text-black bg-transparent border-0`,
+  tw`absolute inset-auto p-1 ml-auto text-gray-200 bg-transparent border-0`,
   tw`float-right p-0 m-0 text-3xl leading-none`,
   tw`font-semibold outline-none focus:outline-none`,
   css`
@@ -66,7 +66,7 @@ const ModalCloseButton = styled.button(() => [
 ]);
 
 const ModalCloseButtonContent = styled.span(() => [
-  tw`block w-6 h-6 text-2xl text-black bg-transparent outline-none opacity-50 focus:outline-none`,
+  tw`block w-6 h-6 text-2xl text-gray-200 bg-transparent outline-none opacity-50 focus:outline-none`,
 ]);
 
 const ModalBody = styled.div<ModalBodyProps>(({ hasFooter = false }) => [
@@ -75,7 +75,7 @@ const ModalBody = styled.div<ModalBodyProps>(({ hasFooter = false }) => [
 ]);
 
 const ModalFooter = styled.div(() => [
-  tw`flex items-center justify-end p-6 bg-gray-100 rounded-b`,
+  tw`flex items-center justify-end p-6 bg-gray-900 rounded-b`,
 ]);
 
 const ModalComponent: React.FC<ModalComponentProps> = ({

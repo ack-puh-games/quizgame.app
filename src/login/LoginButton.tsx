@@ -1,6 +1,6 @@
 import * as React from 'react';
 import firebase from 'firebase/app';
-import { useAuth, useFirestore } from 'reactfire';
+import { useAuth } from 'reactfire';
 import { useHistory } from 'react-router-dom';
 
 import { Button } from '../components';
@@ -17,7 +17,11 @@ const LoginButton: React.FC = () => {
     history.push(query.get('from') || '/');
   };
 
-  return <Button onClick={signIn}>Log In With Google</Button>;
+  return (
+    <Button onClick={signIn} isPrimary>
+      Log In With Google
+    </Button>
+  );
 };
 
 export default LoginButton;

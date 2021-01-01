@@ -14,14 +14,15 @@ export const EmptyImage = styled(EmptyImageComponent)(() => [
 export const ModalFormLabel = styled.label(() => [tw`block`]);
 
 export const ModalFormLabelText = styled.span(() => [
-  tw`text-sm font-medium text-gray-700`,
+  tw`text-sm font-medium text-gray-200`,
 ]);
 
 export const ModalFormInputWrapper = styled.div(() => [tw`relative mt-1`]);
 
 export const ModalFormInput = styled.input(() => [
-  tw`block! w-full! px-3! py-2! border! border-gray-300! rounded-md! shadow-sm!`,
-  tw`focus:outline-none! focus:ring-indigo-500! focus:border-indigo-500! sm:text-sm!`,
+  tw`block w-full px-3 py-2 border-0 rounded-md shadow-sm`,
+  tw`focus:outline-none! focus:ring-purple-300`,
+  tw`text-gray-200 bg-gray-600`,
 ]);
 
 interface CreateBoardModalProps {
@@ -77,6 +78,7 @@ export const EmptyBoardCard = styled.div(() => [
   tw`font-medium border-2 border-gray-500 border-dashed rounded-lg`,
   tw`hover:border-transparent hover:shadow`,
   tw`transition-all duration-150 ease-in-out`,
+  tw`hocus:(ring-purple-300 ring-2)`,
 ]);
 
 export const ExtraDataField = styled.div(() => [

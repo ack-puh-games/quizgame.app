@@ -6,18 +6,17 @@ import {
   useFirestoreCollectionData,
   useUser,
 } from 'reactfire';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import {
   BoardCard,
   CardsContainer,
   CommonWrapper,
-  Header,
   PageWrapper,
 } from '../components';
 import { IBoard } from '../interfaces';
 
-import { EmptyImage } from './styled';
+import { EmptyImage, Header, Subtitle, Link } from './styled';
 
 const GameConfigurator: React.FC = () => {
   const user = useUser<firebase.User>();
@@ -54,10 +53,10 @@ const GameConfigurator: React.FC = () => {
         <>
           <EmptyImage />
           <Header>You have no boards!</Header>
-          <span>
+          <Subtitle>
             You'll need to <Link to="/editor?create=1">create a board</Link>{' '}
             before you can create a new game.
-          </span>
+          </Subtitle>
         </>
       ) : (
         <>

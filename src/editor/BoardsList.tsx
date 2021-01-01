@@ -12,6 +12,8 @@ import {
   PageWrapper,
 } from '../components';
 import { IBoard } from '../interfaces';
+import { useKeyPress } from '../util/useKeyPress';
+import useQuery from '../util/useQuery';
 
 import { defaultCategories, defaultQuestions } from './staticData';
 import {
@@ -26,10 +28,13 @@ const BoardsList: React.FC = () => {
     false,
   );
   const [newBoardName, setNewBoardName] = React.useState<string>('');
+  const [isCreatingBoard, setIsCreatingBoard] = React.useState<boolean>(false);
 
   const history = useHistory();
   const user = useUser<User>();
   const firestore = useFirestore();
+  const query = useQuery();
+  const isEnterPressed = useKeyPress('Enter');
 
   const boardsQuery = firestore
     .collection('boards')
@@ -40,10 +45,28 @@ const BoardsList: React.FC = () => {
     idField: 'id',
   });
 
+  React.useEffect(() => {
+    if (query.get('create')) {
+      setShowCreationModal(true);
+      history.replace('/editor');
+    }
+  }, [query]);
+
+  React.useEffect(() => {
+    if (isEnterPressed) {
+      createBoard();
+    }
+  }, [isEnterPressed]);
+
   const createBoard = async () => {
+    if (isCreatingBoard) {
+      return;
+    }
     if (!newBoardName.length) {
       return;
     }
+
+    setIsCreatingBoard(true);
 
     const board = await firestore.collection('boards').add({
       owner: user.uid,
@@ -66,6 +89,7 @@ const BoardsList: React.FC = () => {
     history.push(`/editor/board/${board.id}`);
 
     closeModal();
+    setIsCreatingBoard(false);
   };
 
   const closeModal = () => {
@@ -80,7 +104,11 @@ const BoardsList: React.FC = () => {
           <>
             <EmptyImage />
             <Header>You have no boards!</Header>
-            <Button type="button" onClick={() => setShowCreationModal(true)}>
+            <Button
+              type="button"
+              onClick={() => setShowCreationModal(true)}
+              isPrimary
+            >
               Create a board
             </Button>
           </>
