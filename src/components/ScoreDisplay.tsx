@@ -44,7 +44,7 @@ const PlayerScore = styled.div(() => [tw`text-3xl font-extrabold`]);
 
 const PlayerName = styled.div(() => [tw`text-xl font-light`]);
 
-const UserAvatar = styled.img(() => [tw`w-12 rounded-full`]);
+const UserAvatar = styled.img(() => [tw`w-12 ml-5 rounded-full`]);
 
 interface ScoreDisplayProps {
   gameId: string;
@@ -63,8 +63,9 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
       <Control onClick={() => setIsOpen(!isOpen)}>Scores</Control>
       {players
         .sort((a, b) => b.currentScore - a.currentScore)
-        .map((player) => (
+        .map((player, index) => (
           <UserCard key={player.id}>
+            <PlayerScore>#{index + 1}</PlayerScore>
             <UserAvatar src={player.image} />
             <Column>
               <PlayerScore>
