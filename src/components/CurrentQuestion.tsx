@@ -205,11 +205,12 @@ export const CurrentQuestionModal: React.FC<CurrentQuestionModalProps> = ({
   isHosting,
 }: CurrentQuestionModalProps) => {
   const [currentState, setCurrentState] = React.useState('noQuestion');
+  const [isSettingDead, setIsSettingDead] = React.useState(false);
   const isSpacePressed = useKeyPress('Space');
   const [showModal, setShowModal] = React.useState(false);
   const database = useDatabase();
   const { currentUser } = useAuth();
-  const [timerWidth, setTimerWidth] = React.useState(0);
+  const [timerWidth, setTimerWidth] = React.useState(100);
   const [buzzerUser, setBuzzerUser] = React.useState('');
 
   const currentQuestionRef = database.ref(`/games/${gameId}/currentQuestion`);
@@ -241,13 +242,39 @@ export const CurrentQuestionModal: React.FC<CurrentQuestionModalProps> = ({
     const timerWidth = Math.max((timeLeft / totalTime) * 100, 0);
 
     setTimerWidth(timerWidth);
-
-    if (timeLeft <= 0) {
-      if (isHosting && currentState === 'unlocked') {
-        currentQuestionRef.child('isDead').set(true);
-      }
-    }
   }, [currentState]);
+
+  React.useEffect(() => {
+    // don't do anything if we're not the host
+    if (!isHosting || isSettingDead) {
+      return;
+    }
+
+    // when the timer runs out, and if we're in the unlocked state, set isDead on the question.
+    if (timerWidth === 0 && currentState === 'unlocked') {
+      setIsSettingDead(true);
+      currentQuestionRef
+        .child('isDead')
+        .set(true)
+        .catch(() => {
+          // just in case the set fails
+          setShowModal(false);
+        });
+    }
+  }, [
+    isHosting,
+    currentState,
+    timerWidth,
+    isSettingDead,
+    setIsSettingDead,
+    setShowModal,
+  ]);
+
+  // clear isSettingDead on all state changes
+  React.useEffect(() => {
+    setIsSettingDead(false);
+    setTimerWidth(100);
+  }, [currentState, setIsSettingDead, setTimerWidth]);
 
   React.useEffect(() => {
     if (isSpacePressed) {

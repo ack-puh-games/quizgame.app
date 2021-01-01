@@ -92,10 +92,12 @@ export const GameCompleteModal: React.FC<GameCompleteModalProps> = ({
   const createdAtRef = database.ref(`/games/${gameId}/createdAt`);
   const playersRef = database.ref(`/games/${gameId}/players`);
   const questionsRef = database.ref(`/games/${gameId}/questions`);
+  const currentQuestionRef = database.ref(`/games/${gameId}/currentQuestion`);
 
   const createdAt = useDatabaseObjectData<number>(createdAtRef);
   const players = useDatabaseListData<IPlayer>(playersRef);
   const questions = useDatabaseListData<any>(questionsRef);
+  const currentQuestion = useDatabaseObjectData<any>(currentQuestionRef);
 
   const topThreePlayers = players
     .sort((a, b) => b.currentScore - a.currentScore)
@@ -107,7 +109,11 @@ export const GameCompleteModal: React.FC<GameCompleteModalProps> = ({
     // assume the game can't end in the first 10 seconds.
     // this is because technically the questions list will be empty when the game starts,
     // until the cloud function to create the questions list runs.
-    if (Date.now() - createdAt >= 10000 && questions.length === 0) {
+    if (
+      Date.now() - createdAt >= 10000 &&
+      questions.length === 0 &&
+      currentQuestion.questionId === undefined
+    ) {
       setShowModal(true);
     }
   }, [createdAt, questions]);
