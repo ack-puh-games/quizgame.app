@@ -90,7 +90,14 @@ const PlayGame: React.FC = () => {
             >
               <CardContainer>
                 <Card>
-                  <CardData isLargeText>${qData.value}</CardData>
+                  <CardData isLargeText>
+                    {qData.value.toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 0,
+                    })}
+                  </CardData>
                 </Card>
               </CardContainer>
             </CardWrapper>

@@ -66,7 +66,14 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
           <UserCard key={player.id}>
             <UserAvatar src={player.image} />
             <Column>
-              <PlayerScore>${player.currentScore}</PlayerScore>
+              <PlayerScore>
+                {player.currentScore.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })}
+              </PlayerScore>
               <PlayerName>{player.name}</PlayerName>
             </Column>
             {!player.connected ? (

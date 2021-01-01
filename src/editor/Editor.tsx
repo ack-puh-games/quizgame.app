@@ -112,7 +112,14 @@ const Editor: React.FC = () => {
                 initialValue={qData.question}
                 query={questionsQuery}
               />
-              <QuestionValue>${qData.value}</QuestionValue>
+              <QuestionValue>
+                {qData.value.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })}
+              </QuestionValue>
               <QuestionCategory>{catData.name}</QuestionCategory>
             </CardWrapper>
           )),
