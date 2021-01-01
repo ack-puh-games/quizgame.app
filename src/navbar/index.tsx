@@ -18,7 +18,7 @@ const NavBar: React.FC = () => {
       <StyledNavBar>
         <NavItemsWrapper>
           <NavLeftSide>
-            <NavItem to="/">Home</NavItem>
+            <NavItem to="/game">Game</NavItem>
             <NavItem to="/editor">Editor</NavItem>
           </NavLeftSide>
 
