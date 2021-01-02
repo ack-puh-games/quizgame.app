@@ -1,7 +1,10 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import * as firestoreAdmin from '@google-cloud/firestore';
 
 const ONE_HOUR = 1000 * 60 * 60;
+const firebaseOutputPathBase = 'gs://quiz-akp-tools.appspot.com/backups';
+const firestoreAdminClient = new firestoreAdmin.v1.FirestoreAdminClient();
 
 admin.initializeApp();
 
@@ -218,4 +221,28 @@ export const clearExpiredGames = functions
         snapshot.ref.remove();
       }
     });
+  });
+
+export const backupFirestore = functions
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '128MB',
+  })
+  .pubsub.schedule('0 0 * * *')
+  .onRun(() => {
+    const projectId = process.env.GCP_PROJECT || process.env.GCLOUD_PROJECT;
+    const name = firestoreAdminClient.databasePath(projectId, '(default)');
+    const outputUriPrefix = `${firebaseOutputPathBase}/${new Date().toISOString()}`;
+
+    return firestoreAdminClient
+      .exportDocuments({
+        name,
+        outputUriPrefix,
+        collectionIds: [],
+      })
+      .catch((err: Error) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+        throw new Error('Export operation failed');
+      });
   });
