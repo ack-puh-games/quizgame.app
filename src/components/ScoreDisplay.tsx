@@ -38,7 +38,12 @@ const UserCard = styled.div(() => [
   tw`flex items-center justify-start`,
 ]);
 
-const Column = styled.div(() => [tw`flex flex-col pl-5`]);
+const Column = styled.div(() => [
+  tw`flex flex-col pl-5`,
+  css`
+    width: 65%;
+  `,
+]);
 
 const PlayerScore = styled.div(() => [tw`text-3xl font-extrabold`]);
 
@@ -49,7 +54,14 @@ const ScorePlace = styled.div(() => [
   `,
 ]);
 
-const PlayerName = styled.div(() => [tw`text-xl font-light`]);
+const PlayerName = styled.div(() => [
+  tw`text-xl font-light`,
+  css`
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  `,
+]);
 
 const UserAvatar = styled.img(() => [tw`w-12 ml-5 rounded-full`]);
 

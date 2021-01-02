@@ -32,13 +32,6 @@ const BackgroundWrapper = styled.div(() => [
 ]);
 const Background = styled.div(() => [tw`absolute inset-0 bg-black opacity-25`]);
 
-const Center = styled.div(() => [
-  tw`flex items-center justify-center flex-grow`,
-  css`
-    /* min-width: 10rem; */
-  `,
-]);
-
 const IconWrapper = styled.div(() => [
   tw`flex items-center justify-center`,
   css`
@@ -59,10 +52,17 @@ const WinnerRow = styled.div(() => [
 ]);
 
 const PlayerRow = styled.div(() => [
-  tw`flex items-center justify-center flex-grow`,
+  tw`flex items-center justify-start flex-grow pl-10`,
 ]);
-const UserAvatar = styled.img(() => [tw`w-16 mr-5 rounded-full`]);
-const PlayerName = styled.div(() => [tw`text-3xl font-semibold`]);
+const UserAvatar = styled.img(() => [tw`w-16 mr-10 rounded-full`]);
+const PlayerName = styled.div(() => [
+  tw`text-3xl font-semibold text-left w-80`,
+  css`
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  `,
+]);
 const PlayerScore = styled.div(() => [
   tw`flex items-center justify-end w-48 text-5xl font-extrabold`,
 ]);
