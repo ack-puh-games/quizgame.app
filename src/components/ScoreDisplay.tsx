@@ -42,6 +42,13 @@ const Column = styled.div(() => [tw`flex flex-col pl-5`]);
 
 const PlayerScore = styled.div(() => [tw`text-3xl font-extrabold`]);
 
+const ScorePlace = styled.div(() => [
+  tw`text-3xl font-extrabold`,
+  css`
+    width: 2.5rem;
+  `,
+]);
+
 const PlayerName = styled.div(() => [tw`text-xl font-light`]);
 
 const UserAvatar = styled.img(() => [tw`w-12 ml-5 rounded-full`]);
@@ -65,7 +72,7 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
         .sort((a, b) => b.currentScore - a.currentScore)
         .map((player, index) => (
           <UserCard key={player.id}>
-            <PlayerScore>#{index + 1}</PlayerScore>
+            <ScorePlace>#{index + 1}</ScorePlace>
             <UserAvatar src={player.image} />
             <Column>
               <PlayerScore>
