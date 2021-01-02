@@ -116,7 +116,7 @@ export const GameCompleteModal: React.FC<GameCompleteModalProps> = ({
     ) {
       setShowModal(true);
     }
-  }, [createdAt, questions]);
+  }, [createdAt, questions, currentQuestion]);
 
   return (
     <ModalContainer showModal={showModal}>
