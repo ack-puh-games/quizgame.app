@@ -6,7 +6,18 @@ import { IPlayer } from '../interfaces';
 
 import { IconExclamation } from '.';
 
-const Icon = styled.div(() => [tw`w-10 h-10 ml-5 text-yellow-300`]);
+const IconContainer = styled.div(() => [
+  tw`absolute inset-0 bg-black bg-opacity-70`,
+]);
+
+const Icon = styled.div(() => [
+  tw`absolute w-10/12 text-yellow-400`,
+  css`
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  `,
+]);
 
 interface SlideOutProps {
   isOpen: boolean;
@@ -63,7 +74,16 @@ const PlayerName = styled.div(() => [
   `,
 ]);
 
-const UserAvatar = styled.img(() => [tw`w-12 ml-5 rounded-full`]);
+interface UserAvatarContainerProps {
+  isDisconnected: boolean;
+}
+
+const UserAvatarContainer = styled.div<UserAvatarContainerProps>(
+  ({ isDisconnected }) => [
+    tw`relative flex items-center justify-center w-12 ml-5 overflow-hidden rounded-full`,
+    isDisconnected && tw`ring-red-600 ring`,
+  ],
+);
 
 interface ScoreDisplayProps {
   gameId: string;
@@ -85,7 +105,16 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
         .map((player, index) => (
           <UserCard key={player.id}>
             <ScorePlace>#{index + 1}</ScorePlace>
-            <UserAvatar src={player.image} />
+            <UserAvatarContainer isDisconnected={!player.connected}>
+              {!player.connected ? (
+                <IconContainer>
+                  <Icon>
+                    <IconExclamation />
+                  </Icon>
+                </IconContainer>
+              ) : null}
+              <img src={player.image} />
+            </UserAvatarContainer>
             <Column>
               <PlayerScore>
                 {player.currentScore?.toLocaleString('en-US', {
@@ -97,11 +126,6 @@ export const ScoreDisplay: React.FC<ScoreDisplayProps> = ({
               </PlayerScore>
               <PlayerName>{player.name}</PlayerName>
             </Column>
-            {!player.connected ? (
-              <Icon>
-                <IconExclamation />
-              </Icon>
-            ) : null}
           </UserCard>
         ))}
     </SlideOut>
