@@ -8,6 +8,7 @@ export * from './Header';
 export { default as GameComplete } from './GameComplete';
 export { default as IconCheckCircle } from './IconCheckCircle';
 export { default as IconClock } from './IconClock';
+export { default as IconDiscord } from './IconDiscord';
 export { default as IconExclamation } from './IconExclamation';
 export { default as IconLoading } from './IconLoading';
 export { default as IconLockClosed } from './IconLockClosed';

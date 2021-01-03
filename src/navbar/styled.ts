@@ -23,12 +23,17 @@ export const NavRightSide = styled.div(() => [
   tw`absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0`,
 ]);
 
+export const StyledNavItem = styled.a(() => [
+  tw`flex flex-row items-center justify-center px-3 py-2 text-sm font-medium rounded-md`,
+  tw`text-gray-300 hover:text-white hover:bg-gray-700`,
+]);
+
 export const NavItem = styled(Link)(({ to }) => {
   const location = useLocation();
   const pathname = `/${location.pathname.split('/')[1]}`;
 
   return [
-    tw`px-3 py-2 text-sm font-medium rounded-md`,
+    tw`flex flex-row items-center justify-center px-3 py-2 text-sm font-medium rounded-md`,
     pathname === to
       ? tw`text-white bg-gray-900`
       : tw`text-gray-300 hover:text-white hover:bg-gray-700`,
