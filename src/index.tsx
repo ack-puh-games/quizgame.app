@@ -34,7 +34,7 @@ const AppWrapper: React.FC = () => (
       {/* TODO: replace React.Suspense with SuspenseWithPerf after upgrade to firebase@^8, QUIZ-13 */}
       {/* <React.Suspense fallback={<h2>Loading...</h2>} traceId="app-load"> */}
       <React.Suspense fallback={<h2>Loading...</h2>}>
-        <Helmet defaultTitle="Quiz Site" titleTemplate="%s | Quiz Site">
+        <Helmet defaultTitle="Quiz Game" titleTemplate="%s | Quiz Game">
           <meta charSet="utf-8" />
           <title>Home</title>
         </Helmet>
