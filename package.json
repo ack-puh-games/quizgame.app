@@ -1,8 +1,8 @@
 {
-  "name": "quiz.akp.tools",
+  "name": "quizgame.app",
   "version": "1.0.0",
   "main": "dist/index.html",
-  "repository": "https://github.com/akp-tools/quiz.akp.tools",
+  "repository": "https://github.com/ack-puh-games/quizgame.app",
   "author": "Austin Peterson <austin@akpwebdesign.com>",
   "license": "MIT",
   "browserslist": [
