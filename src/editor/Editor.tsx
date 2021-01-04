@@ -43,7 +43,7 @@ const EditableCard: React.FC<EditableCardProps> = ({
   const onInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
 
-    doc.set({ [field]: value, edited: true }, { merge: true });
+    doc.set({ [field]: value }, { merge: true });
     setInputValue(value);
   };
 
