@@ -31,7 +31,7 @@ const GameConfigurator: React.FC = () => {
 
   const boards = useFirestoreCollectionData<IBoard>(boardsQuery, {
     idField: 'id',
-  });
+  }).filter((board) => !board.deletedAt);
 
   const createGame = async (boardId: string) => {
     if (!boardId.length) {

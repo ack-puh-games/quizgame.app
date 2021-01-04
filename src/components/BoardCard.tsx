@@ -2,16 +2,23 @@ import * as React from 'react';
 import tw, { css, styled } from 'twin.macro';
 import { useFirestore } from 'reactfire';
 import { Link } from 'react-router-dom';
+import { IBoard } from '../interfaces';
 
 import { default as BoardIconComponent } from './BoardIcon';
+import { default as TrashIconComponent } from './IconTrash';
 
 export { BoardIconComponent };
 
 export const BoardCardContainer = styled.div(() => [tw`w-64 h-32 m-2`]);
 
 export const BoardCard = styled.div(() => [
-  tw`flex flex-row p-4 text-gray-200 bg-gray-700 rounded shadow-sm`,
+  tw`relative flex flex-row p-4 text-gray-200 bg-gray-700 rounded shadow-sm`,
   tw`w-full h-full cursor-pointer hover:bg-gray-600`,
+  css`
+    &:hover .delete {
+      opacity: 100;
+    }
+  `,
 ]);
 
 export const BoardIconContainer = styled.div(() => [
@@ -36,7 +43,12 @@ export const BoardCardData = styled.span(() => [
   `,
 ]);
 
-import { IBoard } from '../interfaces';
+export const BoardCardDelete = styled.div(() => [
+  tw`absolute w-5 text-red-400 transition-opacity opacity-0 top-2 right-2`,
+  tw`hocus:(text-red-500)`,
+]);
+
+export const TrashIcon = styled(TrashIconComponent)(() => [tw`w-full`]);
 
 interface BoardCardProps {
   board: IBoard;
@@ -66,6 +78,12 @@ export const BoardCardComponent: React.FC<BoardCardProps> = ({
       // ignore it.
     });
 
+  const deleteBoard = (boardId?: string) => {
+    firestore
+      .doc(`/boards/${boardId}`)
+      .set({ deletedAt: Date.now() }, { merge: true });
+  };
+
   const BoardCardOutput = () => (
     <BoardCardContainer onClick={onClick}>
       <BoardCard>
@@ -82,6 +100,15 @@ export const BoardCardComponent: React.FC<BoardCardProps> = ({
             <BoardCardData>{questions} / 30</BoardCardData>
           </BoardFlexColumn>
         </BoardFlexColumn>
+        <BoardCardDelete
+          className="delete"
+          onClick={(e) => {
+            e.preventDefault();
+            deleteBoard(board.id);
+          }}
+        >
+          <TrashIcon />
+        </BoardCardDelete>
       </BoardCard>
     </BoardCardContainer>
   );

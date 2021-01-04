@@ -13,6 +13,7 @@ export { default as IconExclamation } from './IconExclamation';
 export { default as IconLoading } from './IconLoading';
 export { default as IconLockClosed } from './IconLockClosed';
 export { default as IconLockOpen } from './IconLockOpen';
+export { default as IconTrash } from './IconTrash';
 export { default as IconTrophy } from './IconTrophy';
 export { default as IconXCircle } from './IconXCircle';
 export { default as Modal } from './Modal';

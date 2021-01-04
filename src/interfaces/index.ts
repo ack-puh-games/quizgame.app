@@ -15,8 +15,9 @@ export interface ICategory {
 
 export interface IBoard {
   id?: string;
-  created: number;
-  edited: number;
+  createdAt: number;
+  editedAt: number;
+  deletedAt: number;
   name: string;
   owner: string;
 }

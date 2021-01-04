@@ -45,7 +45,7 @@ const BoardsList: React.FC = () => {
 
   const boards = useFirestoreCollectionData<IBoard>(boardsQuery, {
     idField: 'id',
-  });
+  }).filter((board) => !board.deletedAt);
 
   React.useEffect(() => {
     if (query.get('create')) {
@@ -73,8 +73,8 @@ const BoardsList: React.FC = () => {
     const board = await firestore.collection('boards').add({
       owner: user.uid,
       name: newBoardName,
-      created: Date.now(),
-      edited: Date.now(),
+      createdAt: Date.now(),
+      editedAt: Date.now(),
     });
 
     for (const catData of defaultCategories) {

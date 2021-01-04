@@ -14,7 +14,7 @@ service cloud.firestore {
         return isAuthed && isOwner;
    	 	}
 
-      allow create: if request.auth != null && request.resource.data.owner == request.auth.uid;
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.owner;
       allow read, update, delete: if request.auth != null && request.auth.uid == resource.data.owner;
 
       match /categories/{category} {
