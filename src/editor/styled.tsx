@@ -4,6 +4,7 @@ import tw, { css, styled } from 'twin.macro';
 import {
   Button,
   EmptyImage as EmptyImageComponent,
+  IconLoading,
   Modal,
 } from '../components';
 
@@ -31,6 +32,7 @@ interface CreateBoardModalProps {
   newBoardName: string;
   setNewBoardName: React.Dispatch<React.SetStateAction<string>>;
   showCreationModal: boolean;
+  isCreatingBoard: boolean;
 }
 
 export const CreateBoardModal: React.FC<CreateBoardModalProps> = ({
@@ -39,12 +41,13 @@ export const CreateBoardModal: React.FC<CreateBoardModalProps> = ({
   newBoardName,
   setNewBoardName,
   showCreationModal,
+  isCreatingBoard,
 }: CreateBoardModalProps) => (
   <Modal
     title="Create a Board"
     footer={
-      <Button onClick={createBoard} fullWidth>
-        Create
+      <Button onClick={createBoard} disabled={isCreatingBoard} fullWidth>
+        {isCreatingBoard ? <IconLoading /> : 'Create'}
       </Button>
     }
     onClose={closeModal}

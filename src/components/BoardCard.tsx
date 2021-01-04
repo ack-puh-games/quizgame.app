@@ -1,6 +1,6 @@
 import * as React from 'react';
 import tw, { css, styled } from 'twin.macro';
-import { useFirestore, useFirestoreCollectionData } from 'reactfire';
+import { useFirestore } from 'reactfire';
 import { Link } from 'react-router-dom';
 
 import { default as BoardIconComponent } from './BoardIcon';
@@ -49,6 +49,7 @@ export const BoardCardComponent: React.FC<BoardCardProps> = ({
   to,
   onClick,
 }: BoardCardProps) => {
+  const [questions, setQuestions] = React.useState<number>(0);
   const firestore = useFirestore();
   const questionsQuery = firestore
     .collection('boards')
@@ -56,7 +57,14 @@ export const BoardCardComponent: React.FC<BoardCardProps> = ({
     .collection('questions')
     .where('edited', '==', true);
 
-  const questions = useFirestoreCollectionData(questionsQuery);
+  questionsQuery
+    .get()
+    .then((snap) => {
+      setQuestions(snap.size);
+    })
+    .catch(() => {
+      // ignore it.
+    });
 
   const BoardCardOutput = () => (
     <BoardCardContainer onClick={onClick}>
@@ -71,7 +79,7 @@ export const BoardCardComponent: React.FC<BoardCardProps> = ({
           </BoardFlexColumn>
           <BoardFlexColumn>
             <BoardCardHeader>Questions</BoardCardHeader>
-            <BoardCardData>{questions.length} / 30</BoardCardData>
+            <BoardCardData>{questions} / 30</BoardCardData>
           </BoardFlexColumn>
         </BoardFlexColumn>
       </BoardCard>

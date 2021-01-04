@@ -9,8 +9,9 @@ interface ButtonProps {
 export const Button = styled.button<ButtonProps>(
   ({ isSmall, fullWidth, isPrimary }) => [
     tw`px-8 py-2 text-lg rounded focus:outline-none`,
+    tw`flex items-center justify-center`,
     tw`font-bold text-gray-300 bg-gray-800`,
-    tw`hocus:(bg-gray-700)`,
+    tw`hocus:(bg-gray-700) disabled:(bg-gray-800! cursor-not-allowed)`,
 
     isSmall ? tw`text-sm` : tw`text-xl`,
     fullWidth && tw`container`,

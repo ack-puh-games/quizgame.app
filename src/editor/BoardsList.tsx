@@ -23,6 +23,8 @@ import {
   EmptyBoardCard,
 } from './styled';
 
+const wait = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 const BoardsList: React.FC = () => {
   const [showCreationModal, setShowCreationModal] = React.useState<boolean>(
     false,
@@ -75,16 +77,19 @@ const BoardsList: React.FC = () => {
       edited: Date.now(),
     });
 
-    defaultCategories.forEach(async (catData) => {
-      const category = await board.collection('categories').add(catData);
-
-      defaultQuestions.forEach(async (qData) => {
-        await board.collection('questions').add({
-          ...qData,
-          categoryId: category.id,
+    for (const catData of defaultCategories) {
+      board
+        .collection('categories')
+        .add(catData)
+        .then((category) => {
+          for (const qData of defaultQuestions) {
+            board.collection('questions').add({
+              ...qData,
+              categoryId: category.id,
+            });
+          }
         });
-      });
-    });
+    }
 
     history.push(`/editor/board/${board.id}`);
 
@@ -137,6 +142,7 @@ const BoardsList: React.FC = () => {
         newBoardName={newBoardName}
         setNewBoardName={setNewBoardName}
         showCreationModal={showCreationModal}
+        isCreatingBoard={isCreatingBoard}
       />
     </>
   );

@@ -46,7 +46,7 @@ const ModalContentWrapper = styled.div<ModalContentWrapperProps>(({ size }) => [
 ]);
 
 const ModalContent = styled.div(() => [
-  tw`relative flex flex-col w-full text-gray-200 bg-gray-700 border-0 rounded-lg shadow-lg outline-none focus:outline-none`,
+  tw`relative flex flex-col w-full overflow-hidden text-gray-200 bg-gray-700 border-0 rounded-lg shadow-lg outline-none focus:outline-none`,
 ]);
 
 const ModalHeader = styled.div(() => [
@@ -86,23 +86,21 @@ const ModalComponent: React.FC<ModalComponentProps> = ({
   onClose,
   size = 'medium',
 }: ModalComponentProps) => (
-  <>
-    <ModalContainer showModal={showModal}>
-      <ModalContentWrapper size={size}>
-        <ModalContent onClick={(e) => e.preventDefault()}>
-          <ModalHeader>
-            <ModalTitle>{title}</ModalTitle>
-            <ModalCloseButton onClick={onClose}>
-              <ModalCloseButtonContent>×</ModalCloseButtonContent>
-            </ModalCloseButton>
-          </ModalHeader>
-          <ModalBody hasFooter={!!footer}>{children}</ModalBody>
-          {footer ? <ModalFooter>{footer}</ModalFooter> : null}
-        </ModalContent>
-      </ModalContentWrapper>
-      <ModalBackground onClick={onClose} />
-    </ModalContainer>
-  </>
+  <ModalContainer showModal={showModal}>
+    <ModalContentWrapper size={size}>
+      <ModalContent onClick={(e) => e.preventDefault()}>
+        <ModalHeader>
+          <ModalTitle>{title}</ModalTitle>
+          <ModalCloseButton onClick={onClose}>
+            <ModalCloseButtonContent>×</ModalCloseButtonContent>
+          </ModalCloseButton>
+        </ModalHeader>
+        <ModalBody hasFooter={!!footer}>{children}</ModalBody>
+        {footer ? <ModalFooter>{footer}</ModalFooter> : null}
+      </ModalContent>
+    </ModalContentWrapper>
+    <ModalBackground onClick={onClose} />
+  </ModalContainer>
 );
 
 export default ModalComponent;
