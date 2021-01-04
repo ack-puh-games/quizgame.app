@@ -70,8 +70,8 @@ const LoadingIcon = styled(IconLoadingComponent)(() => [
 const LoadingIconSmall = styled(IconLoadingComponent)(() => [
   tw`w-10 h-10 text-purple-300`,
 ]);
-const QuestionText = styled.span(() => [
-  tw`text-6xl font-bold`,
+const QuestionText = styled.div(() => [
+  tw`flex flex-col text-6xl font-bold`,
   css`
     line-height: 1.2em;
   `,
@@ -169,7 +169,16 @@ const QuestionModalContents = ({
 
   return (
     <>
-      <QuestionText>{question.questionText}</QuestionText>
+      <QuestionText>
+        {question.questionText
+          .split('\n')
+          .filter((str) => str.trim().length)
+          .map((str, index) => (
+            <div key={str} style={{ marginTop: index ? 25 : 0 }}>
+              {str}
+            </div>
+          ))}
+      </QuestionText>
       <QuestionValue>${question.questionValue}</QuestionValue>
     </>
   );
