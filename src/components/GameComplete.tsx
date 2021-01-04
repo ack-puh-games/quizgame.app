@@ -79,6 +79,11 @@ const FullScreenCard = styled(Card)(() => [
   `,
 ]);
 
+const CloseButton = styled.span(() => [
+  tw`absolute top-0 text-4xl text-gray-300 right-3`,
+  tw`cursor-pointer hover:text-gray-50`,
+]);
+
 interface GameCompleteModalProps {
   gameId: string;
 }
@@ -126,6 +131,7 @@ export const GameCompleteModal: React.FC<GameCompleteModalProps> = ({
             <Background />
           </BackgroundWrapper>
           <FullScreenCard>
+            <CloseButton onClick={() => setShowModal(false)}>×</CloseButton>
             <Header>Game Finished!</Header>
             {topThreePlayers.map((player, index) => {
               const TrophyColor = trophies[index] || React.Fragment;
