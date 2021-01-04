@@ -125,6 +125,7 @@ const BoardsList: React.FC = () => {
                   board={board}
                   to={`/editor/board/${board.id}`}
                   key={board.id}
+                  isEditor
                 />
               ))}
               <EmptyBoardCardContainer>

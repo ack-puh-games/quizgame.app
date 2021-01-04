@@ -52,12 +52,14 @@ export const TrashIcon = styled(TrashIconComponent)(() => [tw`w-full`]);
 
 interface BoardCardProps {
   board: IBoard;
+  isEditor?: boolean;
   to?: string;
   onClick?: () => void;
 }
 
 export const BoardCardComponent: React.FC<BoardCardProps> = ({
   board,
+  isEditor = false,
   to,
   onClick,
 }: BoardCardProps) => {
@@ -67,7 +69,7 @@ export const BoardCardComponent: React.FC<BoardCardProps> = ({
     .collection('boards')
     .doc(board.id)
     .collection('questions')
-    .where('edited', '==', true);
+    .where('question', '!=', '');
 
   questionsQuery
     .get()
@@ -100,15 +102,17 @@ export const BoardCardComponent: React.FC<BoardCardProps> = ({
             <BoardCardData>{questions} / 30</BoardCardData>
           </BoardFlexColumn>
         </BoardFlexColumn>
-        <BoardCardDelete
-          className="delete"
-          onClick={(e) => {
-            e.preventDefault();
-            deleteBoard(board.id);
-          }}
-        >
-          <TrashIcon />
-        </BoardCardDelete>
+        {isEditor ? (
+          <BoardCardDelete
+            className="delete"
+            onClick={(e) => {
+              e.preventDefault();
+              deleteBoard(board.id);
+            }}
+          >
+            <TrashIcon />
+          </BoardCardDelete>
+        ) : null}
       </BoardCard>
     </BoardCardContainer>
   );
