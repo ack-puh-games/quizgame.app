@@ -171,7 +171,7 @@ const QuestionModalContents = ({
     <>
       <QuestionText>
         {question.questionText
-          .split('\n')
+          ?.split('\n')
           .filter((str) => str.trim().length)
           .map((str, index) => (
             <div key={str} style={{ marginTop: index ? 25 : 0 }}>
