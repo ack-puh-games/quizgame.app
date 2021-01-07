@@ -219,6 +219,7 @@ export const CurrentQuestionModal: React.FC<CurrentQuestionModalProps> = ({
   const [showModal, setShowModal] = React.useState(false);
   const database = useDatabase();
   const { currentUser } = useAuth();
+  const [timerStart, setTimerStart] = React.useState<number>();
   const [timerWidth, setTimerWidth] = React.useState(100);
   const [buzzerUser, setBuzzerUser] = React.useState('');
 
@@ -230,28 +231,44 @@ export const CurrentQuestionModal: React.FC<CurrentQuestionModalProps> = ({
   const playersRef = database.ref(`/games/${gameId}/players`);
 
   useAnimationFrame(() => {
-    let startTime = 0;
     let totalTime = 0;
+
+    if (timerStart === undefined) {
+      return;
+    }
 
     switch (currentState) {
       case 'unlocked':
-        startTime = currentQuestion.unlockedAt;
         totalTime = 5000;
         break;
       case 'buzzed':
-        startTime = currentQuestion.buzzedAt;
         totalTime = 3000;
         break;
       default:
         return; // just end early
     }
 
-    const rawTimeValue = Date.now() - startTime;
+    const rawTimeValue = Date.now() - timerStart;
     const timeLeft = totalTime - rawTimeValue;
     const timerWidth = Math.max((timeLeft / totalTime) * 100, 0);
 
     setTimerWidth(timerWidth);
-  }, [currentState]);
+  }, [currentState, timerStart, setTimerWidth]);
+
+  React.useEffect(() => {
+    if (
+      (currentState === 'unlocked' || currentState === 'buzzed') &&
+      timerStart === undefined
+    ) {
+      setTimerStart(Date.now());
+    } else if (
+      currentState !== 'unlocked' &&
+      currentState !== 'buzzed' &&
+      timerStart !== undefined
+    ) {
+      setTimerStart(undefined);
+    }
+  }, [currentState, setTimerStart, timerStart]);
 
   React.useEffect(() => {
     // don't do anything if we're not the host
