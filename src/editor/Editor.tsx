@@ -29,6 +29,7 @@ interface EditableCardProps {
   id: string;
   initialValue: string;
   query: firebase.firestore.CollectionReference<firebase.firestore.DocumentData>;
+  textField: string;
 }
 
 const EditableCard: React.FC<EditableCardProps> = ({
@@ -36,9 +37,21 @@ const EditableCard: React.FC<EditableCardProps> = ({
   id,
   initialValue,
   query,
+  textField,
 }: EditableCardProps) => {
   const [inputValue, setInputValue] = React.useState(initialValue);
   const doc = query.doc(id);
+
+  React.useEffect(() => {
+    const onSnap = doc.onSnapshot((snap) => {
+      const data = snap.data();
+      if (data && data[textField]) {
+        setInputValue(data[textField]);
+      }
+    });
+
+    return () => onSnap();
+  }, [doc]);
 
   const onInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
@@ -96,6 +109,7 @@ const Editor: React.FC = () => {
               id={catData.id || ''}
               initialValue={catData.name}
               query={categoriesQuery}
+              textField="name"
             />
           </CardWrapper>
         ))}
@@ -111,6 +125,7 @@ const Editor: React.FC = () => {
                 id={qData.id || ''}
                 initialValue={qData.question}
                 query={questionsQuery}
+                textField="question"
               />
               <QuestionValue>
                 {qData.value.toLocaleString('en-US', {

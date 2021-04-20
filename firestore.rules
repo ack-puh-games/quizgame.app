@@ -14,16 +14,28 @@ service cloud.firestore {
         return isAuthed && isOwner;
    	 	}
 
+      function userIsEditor() {
+        let isAuthed = request.auth != null;
+        let isEditor = exists(/databases/$(database)/documents/boards/$(board)/permissions/$(request.auth.uid)) && get(/databases/$(database)/documents/boards/$(board)/permissions/$(request.auth.uid)).data.role == 'editor';
+
+        return isAuthed && isEditor;
+      }
+
+      function hasPerms() {
+        return userOwnsBoard() || userIsEditor()
+      }
+
       allow create: if request.auth != null && request.auth.uid == request.resource.data.owner;
-      allow read, update, delete: if request.auth != null && request.auth.uid == resource.data.owner;
+      allow read: if request.auth != null;
+      allow update, delete: if hasPerms();
 
       match /categories/{category} {
         allow read: if request.auth != null;
-        allow write: if userOwnsBoard();
+        allow write: if hasPerms();
       }
 
       match /questions/{question} {
-        allow read, write: if userOwnsBoard();
+        allow read, write: if hasPerms();
       }
     }
   }
